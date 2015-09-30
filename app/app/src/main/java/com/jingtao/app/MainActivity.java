@@ -44,8 +44,9 @@ public class MainActivity extends Activity {
     RelativeLayout Drawer;
     DrawerLayout drawerLayout;
     Boolean IsStudent=true;
-    ArrayList listItems = new ArrayList<>();
-    ArrayAdapter<String> ListViewAdapter;
+    ArrayList<Model> listItems = new ArrayList<>();
+    //ArrayList listItems = new ArrayList<>();
+    ItemAdapter adapter;
 
     @Override
     public void onBackPressed() {
@@ -62,6 +63,19 @@ public class MainActivity extends Activity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         findViewById(R.id.btn_switch).setOnClickListener(SwitchToTutor);
         SetListView();
+
+        //ItemAdapter adapter = new ItemAdapter(this, getData());
+        //ListView listView = (ListView) findViewById(R.id.list);
+        //listView.setAdapter(adapter);
+
+    }
+    private ArrayList<Model> getData() {
+        ArrayList<Model> models = new ArrayList<Model>();
+        //models.add(new Model("subject", "text", "string", 1));
+        //models.add(new Model("subject", "text", "string", 1));
+        //models.add(new Model("subject", "text", "string", 1));
+        //models.add(new Model("subject", "text", "string", 1));
+        return models;
     }
     protected void SetListView(){
         ListView listView = (ListView) findViewById(R.id.list);
@@ -70,12 +84,10 @@ public class MainActivity extends Activity {
 
 
         // Defined Array values to show in ListView
-        ListViewAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, listItems);
-
+        adapter = new ItemAdapter(this, listItems);
 
         // Assign adapter to ListView
-        listView.setAdapter(ListViewAdapter);
+        listView.setAdapter(adapter);
     }
 
 
@@ -214,8 +226,8 @@ public class MainActivity extends Activity {
         for(int i=0; i<jarr.length(); i++){
             try {
                 JSONObject json_data = jarr.getJSONObject(i);
-                listItems.add(json_data.getString("subject") + json_data.getString("createdAt"));
-                ListViewAdapter.notifyDataSetChanged();
+                listItems.add(new Model(json_data.getString("subject"),"","",""));
+                adapter.notifyDataSetChanged();
             }catch (Exception e){
                 Log.e("app","Jsonarray exception",e);
             }
