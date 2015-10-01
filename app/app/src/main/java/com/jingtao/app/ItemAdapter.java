@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.os.Bundle;
 
@@ -43,6 +44,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             TextView subject_tv = (TextView) rowView.findViewById(R.id.subject_tv);
             TextView text_tv = (TextView) rowView.findViewById(R.id.text_tv);
             ImageView hint=(ImageView) rowView.findViewById(R.id.hint);
+            RelativeLayout row = (RelativeLayout)rowView.findViewById(R.id.row);
 
 
             // 4. Set the text for textView
@@ -54,11 +56,15 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             }
             subject_tv.setText(Subject);
             text_tv.setText(modelsArrayList.get(position).getText());
-            if(modelsArrayList.get(position).getHintType()=="1"){
+            if(modelsArrayList.get(position).getHintType().equals("1")){
                 hint.setImageResource(R.mipmap.ic_hint);
             }else{
                 hint.setImageResource(R.mipmap.ic_ans);;
             }
+            if(modelsArrayList.get(position).getStatus().equals("closed")){
+                row.setBackgroundColor(Color.parseColor("#d5d5d5"));
+            }
+
 
 
 

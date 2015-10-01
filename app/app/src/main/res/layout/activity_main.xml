@@ -76,11 +76,13 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#abd1fd"
+        android:clickable="true"
         >
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/btns">
             <ImageView
                 android:id="@+id/Logo"
                 android:layout_width="fill_parent"
@@ -132,6 +134,7 @@
                 android:drawablePadding="-60dp"
                 />
         </LinearLayout>
+
     </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

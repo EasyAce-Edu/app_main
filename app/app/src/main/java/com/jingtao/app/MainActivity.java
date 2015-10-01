@@ -43,7 +43,6 @@ import javax.xml.parsers.SAXParserFactory;
 public class MainActivity extends Activity {
 
     RelativeLayout leftRL;
-    RelativeLayout Drawer;
     DrawerLayout drawerLayout;
     Boolean IsStudent=true;
     ArrayList<Model> listItems = new ArrayList<>();
@@ -76,8 +75,10 @@ public class MainActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Model model = (Model)parent.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this, QuestionDetail.class);
+                intent.putExtra("model",model);
                 startActivity(intent);
             }
         });
@@ -229,7 +230,10 @@ public class MainActivity extends Activity {
             try {
                 JSONObject json_data = jarr.getJSONObject(i);
                 JSONObject fstMsg=(JSONObject)json_data.getJSONArray("msgList").get(0);
-                listItems.add(new Model(json_data.getString("subject"),fstMsg.getString("textMsg"),json_data.getString("status"),json_data.getString("hintType")));
+                listItems.add(new Model(json_data.getString("subject"),fstMsg.getString("textMsg"),
+                        json_data.getString("status"),json_data.getString("hintType"),json_data.getString("askedBy"),
+                        json_data.getString("_id"),json_data.getString("createdAt"),json_data.getString("updatedAt"),
+                        json_data.getJSONArray("msgList").toString()));
                 adapter.notifyDataSetChanged();
             }catch (Exception e){
                 Log.e("app","Jsonarray exception",e);
