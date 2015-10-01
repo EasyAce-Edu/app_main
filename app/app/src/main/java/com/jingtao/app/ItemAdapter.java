@@ -3,6 +3,7 @@ package com.jingtao.app;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,25 @@ public class ItemAdapter extends ArrayAdapter<Model> {
 
             // 3. Get icon,title & counter views from the rowView
             ImageView imgView = (ImageView) rowView.findViewById(R.id.imageView);
-            TextView textView1 = (TextView) rowView.findViewById(R.id.textView1);
-            TextView textView2 = (TextView) rowView.findViewById(R.id.textView2);
+            TextView subject_tv = (TextView) rowView.findViewById(R.id.subject_tv);
+            TextView text_tv = (TextView) rowView.findViewById(R.id.text_tv);
+            ImageView hint=(ImageView) rowView.findViewById(R.id.hint);
 
 
             // 4. Set the text for textView
-            imgView.setImageResource(R.mipmap.ic_launcher);
-            textView1.setText(modelsArrayList.get(position).getSubject());
-            textView2.setText(modelsArrayList.get(position).getText());
+            String Subject = modelsArrayList.get(position).getSubject();
+            if(Subject.equals("math")){
+                imgView.setImageResource(R.mipmap.ic_m);
+            }else{
+                imgView.setBackgroundColor(Color.parseColor("#5ca8cd"));
+            }
+            subject_tv.setText(Subject);
+            text_tv.setText(modelsArrayList.get(position).getText());
+            if(modelsArrayList.get(position).getHintType()=="1"){
+                hint.setImageResource(R.mipmap.ic_hint);
+            }else{
+                hint.setImageResource(R.mipmap.ic_ans);;
+            }
 
 
 

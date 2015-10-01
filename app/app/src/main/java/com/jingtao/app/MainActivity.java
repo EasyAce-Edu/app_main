@@ -2,6 +2,7 @@ package com.jingtao.app;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -69,16 +71,16 @@ public class MainActivity extends Activity {
         //listView.setAdapter(adapter);
 
     }
-    private ArrayList<Model> getData() {
-        ArrayList<Model> models = new ArrayList<Model>();
-        //models.add(new Model("subject", "text", "string", 1));
-        //models.add(new Model("subject", "text", "string", 1));
-        //models.add(new Model("subject", "text", "string", 1));
-        //models.add(new Model("subject", "text", "string", 1));
-        return models;
-    }
+
     protected void SetListView(){
         ListView listView = (ListView) findViewById(R.id.list);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, QuestionDetail.class);
+                startActivity(intent);
+            }
+        });
         String getQuestion="https://easyace-api-staging.herokuapp.com/questions";
         new RetrieveQuestion().execute(getQuestion);
 
@@ -226,7 +228,8 @@ public class MainActivity extends Activity {
         for(int i=0; i<jarr.length(); i++){
             try {
                 JSONObject json_data = jarr.getJSONObject(i);
-                listItems.add(new Model(json_data.getString("subject"),"","",""));
+                JSONObject fstMsg=(JSONObject)json_data.getJSONArray("msgList").get(0);
+                listItems.add(new Model(json_data.getString("subject"),fstMsg.getString("textMsg"),json_data.getString("status"),json_data.getString("hintType")));
                 adapter.notifyDataSetChanged();
             }catch (Exception e){
                 Log.e("app","Jsonarray exception",e);
