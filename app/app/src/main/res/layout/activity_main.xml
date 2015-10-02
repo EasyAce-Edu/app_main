@@ -26,7 +26,16 @@
                 android:background="#157efb"
                 android:textColor="#ffffff"
                 android:onClick="opendraw"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Processing"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/textView"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/btn_other"
@@ -39,22 +48,11 @@
                 android:background="#157efb"
                 android:textColor="#ffffff" />
         </RelativeLayout>
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:id="@+id/scroll"
-            android:layout_below="@id/header_layout">
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Processing"
-            android:id="@+id/textView"/>
-        </ScrollView>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/scroll">
+            android:layout_below="@id/header_layout">
                 <ListView
                     android:id="@+id/list"
                     android:layout_width="match_parent"
@@ -89,12 +87,20 @@
                 android:layout_height="160dp"
                 android:background="#157efb"
                 android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/user"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#157efb"/>
             <Button
                 android:id="@+id/btn_profile"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:background="#2e8cfb"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:text="Profile"
                 android:drawableLeft="@mipmap/ic_profile"
                 android:paddingLeft="30dp"
@@ -105,7 +111,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:background="#479afb"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:text="Qst History"
                 android:drawableLeft="@mipmap/ic_correct"
                 android:paddingLeft="30dp"
@@ -116,7 +122,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:background="#60a8fc"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:text="Ask a Qst"
                 android:drawableLeft="@mipmap/ic_question"
                 android:paddingLeft="30dp"
@@ -127,7 +133,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:background="#79b6fc"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:text="Switch To Tutor"
                 android:drawableLeft="@mipmap/ic_tutor"
                 android:paddingLeft="30dp"

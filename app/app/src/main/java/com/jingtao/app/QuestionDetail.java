@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,7 +43,7 @@ public class QuestionDetail extends Activity {
         status.setText("Status: "+status_str);
         if(status_str.equals("open")){
             status.setTextColor(Color.parseColor("#228b22"));
-        }else if (status_str.equals("closed")){
+        }else if (status_str.equals("close")){
             status.setTextColor(Color.parseColor("#696969"));
         }
         TextView hint=(TextView)findViewById(R.id.hint);
@@ -55,6 +56,8 @@ public class QuestionDetail extends Activity {
             hint.setText("Looking for full solution");
             hint_img.setImageResource(R.mipmap.ic_ans);
         }
+        ImageView subimg=(ImageView)findViewById(R.id.subject_img);
+        subimg.setImageResource(R.mipmap.ic_m);
 
     }
 

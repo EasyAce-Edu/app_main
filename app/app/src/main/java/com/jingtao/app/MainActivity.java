@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.KeyException;
 import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
@@ -48,6 +50,8 @@ public class MainActivity extends Activity {
     ArrayList<Model> listItems = new ArrayList<>();
     //ArrayList listItems = new ArrayList<>();
     ItemAdapter adapter;
+    String userName="user1";
+    TextView tv;
 
     @Override
     public void onBackPressed() {
@@ -56,22 +60,41 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//      I'm removing the ActionBar.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        tv = (TextView) findViewById(R.id.textView);
 
         leftRL = (RelativeLayout)findViewById(R.id.Drawer);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         findViewById(R.id.btn_switch).setOnClickListener(SwitchToTutor);
-        SetListView();
-
-        //ItemAdapter adapter = new ItemAdapter(this, getData());
-        //ListView listView = (ListView) findViewById(R.id.list);
-        //listView.setAdapter(adapter);
+        TextView user=(TextView)findViewById(R.id.user);
+        user.setText(userName + "\n" + (IsStudent ? "Student" : "Tutor"));
+        SetListView(true);
+        Button history_btn=(Button)findViewById(R.id.btn_history);
+        history_btn.setOnClickListener(search_history);
+        Button askQst_QstPool = (Button)findViewById(R.id.btn_QA);
+        askQst_QstPool.setOnClickListener(questionAndAnswer);
 
     }
-
-    protected void SetListView(){
+    View.OnClickListener search_history = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            SetListView(false);
+            tv.setText("My Qst");
+        }
+    };
+    View.OnClickListener questionAndAnswer = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(IsStudent) {
+                //TODO: jump to send question
+            }else {
+                SetListView(true);
+                tv.setText("Qst Pool");
+            }
+        }
+    };
+    protected void SetListView(Boolean QuestionPool){
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,6 +106,19 @@ public class MainActivity extends Activity {
             }
         });
         String getQuestion="https://easyace-api-staging.herokuapp.com/questions";
+        if(IsStudent) {
+            getQuestion = getQuestion+"?askedBy="+userName;
+            tv.setText("My Qst");
+        }else {
+            if(QuestionPool){
+                getQuestion=getQuestion+"?status=open";
+                tv.setText("Qst Pool");
+            }else{
+                getQuestion=getQuestion+"?answeredBy="+userName;
+                tv.setText("My Qst");
+            }
+        }
+        listItems = new ArrayList<>();
         new RetrieveQuestion().execute(getQuestion);
 
 
@@ -117,6 +153,10 @@ public class MainActivity extends Activity {
                     btn.setText("Switch To Student");
                     btn.setBackgroundColor(Color.parseColor("#d1fdab"));
                     btn.setOnClickListener(SwitchToStudent);
+                    TextView user=(TextView)findViewById(R.id.user);
+                    user.setBackgroundColor(Color.parseColor("#7efb15"));
+                    user.setText(userName + "\n" + (IsStudent ? "Student" : "Tutor"));
+                    SetListView(false);
                 }
             }, 500);
         }
@@ -144,6 +184,10 @@ public class MainActivity extends Activity {
                     btn.setText("Switch To Student");
                     btn.setBackgroundColor(Color.parseColor("#79b6fc"));
                     btn.setOnClickListener(SwitchToTutor);
+                    TextView user=(TextView)findViewById(R.id.user);
+                    user.setBackgroundColor(Color.parseColor("#157efb"));
+                    user.setText(userName + "\n" + (IsStudent ? "Student" : "Tutor"));
+                    SetListView(false);
                 }
             }, 500);
         }
@@ -184,10 +228,10 @@ public class MainActivity extends Activity {
             URL GetQstUrl;
             HttpURLConnection urlConnection;
             InputStream in;
-            String getQuestion="https://easyace-api-staging.herokuapp.com/questions";
+            //String getQuestion="https://easyace-api-staging.herokuapp.com/questions";
 
         try{
-            GetQstUrl = new URL(getQuestion);
+            GetQstUrl = new URL(urls[0]);
             urlConnection = (HttpURLConnection) GetQstUrl.openConnection();
             try {
                 in = new BufferedInputStream(urlConnection.getInputStream());
@@ -211,14 +255,17 @@ public class MainActivity extends Activity {
 
         protected void onPostExecute(String str) {
             try {
-                TextView tv = (TextView) findViewById(R.id.textView);
+                if(str.isEmpty()){
+                    return;
+                }
                 JSONObject jsonObject = new JSONObject(str);
+                if(!jsonObject.has("data")){
+                    return;
+                }
                 JSONArray data = jsonObject.getJSONArray("data");
-                tv.setText(data.toString());
                 PrintJSONList(data);
             }catch (Exception e){
                 Log.e("App","string2JsonException",e);
-                TextView tv = (TextView) findViewById(R.id.textView);
                 tv.setText("Error: Bad Data or connection problem");
             }
         }
@@ -241,7 +288,6 @@ public class MainActivity extends Activity {
         }
         }catch (Exception e){
             Log.e("app","Jsonarray exception",e);
-            TextView tv = (TextView) findViewById(R.id.textView);
             tv.setText("Error: Bad Data");
         }
 

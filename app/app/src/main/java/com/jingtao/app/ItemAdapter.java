@@ -61,7 +61,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             }else{
                 hint.setImageResource(R.mipmap.ic_ans);;
             }
-            if(modelsArrayList.get(position).getStatus().equals("closed")){
+            if(modelsArrayList.get(position).getStatus().equals("close")){
                 row.setBackgroundColor(Color.parseColor("#d5d5d5"));
             }
 
