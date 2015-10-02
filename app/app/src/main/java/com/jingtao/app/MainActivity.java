@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
     ItemAdapter adapter;
     String userName="user1";
     TextView tv;
+    TextView log;
 
     @Override
     public void onBackPressed() {
@@ -63,7 +64,7 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         tv = (TextView) findViewById(R.id.textView);
-
+        log = (TextView) findViewById(R.id.log);
         leftRL = (RelativeLayout)findViewById(R.id.Drawer);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         findViewById(R.id.btn_switch).setOnClickListener(SwitchToTutor);
@@ -79,22 +80,30 @@ public class MainActivity extends Activity {
     View.OnClickListener search_history = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            drawerLayout.closeDrawer(leftRL);
             SetListView(false);
             tv.setText("My Qst");
+            log.setText("");
+            log.setBackgroundColor(Color.parseColor("#f0f0f0"));
         }
     };
     View.OnClickListener questionAndAnswer = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            drawerLayout.closeDrawer(leftRL);
             if(IsStudent) {
                 //TODO: jump to send question
             }else {
                 SetListView(true);
                 tv.setText("Qst Pool");
+                log.setText("");
+                log.setBackgroundColor(Color.parseColor("#f0f0f0"));
             }
         }
     };
     protected void SetListView(Boolean QuestionPool){
+        log.setText("Loading, Please wait");
+        log.setBackgroundColor(Color.parseColor("#ffcece"));
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -255,18 +264,18 @@ public class MainActivity extends Activity {
 
         protected void onPostExecute(String str) {
             try {
-                if(str.isEmpty()){
-                    return;
-                }
                 JSONObject jsonObject = new JSONObject(str);
                 if(!jsonObject.has("data")){
+                    log.setText("You Don't have any Questions");
+                    log.setBackgroundColor(Color.parseColor("#ffcece"));
                     return;
                 }
                 JSONArray data = jsonObject.getJSONArray("data");
                 PrintJSONList(data);
             }catch (Exception e){
                 Log.e("App","string2JsonException",e);
-                tv.setText("Error: Bad Data or connection problem");
+                log.setText("cannot connect to Server, please check your internet connection");
+                log.setBackgroundColor(Color.parseColor("#ffcece"));
             }
         }
     }
@@ -282,13 +291,15 @@ public class MainActivity extends Activity {
                         json_data.getString("_id"),json_data.getString("createdAt"),json_data.getString("updatedAt"),
                         json_data.getJSONArray("msgList").toString()));
                 adapter.notifyDataSetChanged();
+                log.setText("");
+                log.setBackgroundColor(Color.parseColor("#f0f0f0"));
             }catch (Exception e){
                 Log.e("app","Jsonarray exception",e);
             }
         }
         }catch (Exception e){
             Log.e("app","Jsonarray exception",e);
-            tv.setText("Error: Bad Data");
+            log.setText("Error: Bad Data");
         }
 
     }

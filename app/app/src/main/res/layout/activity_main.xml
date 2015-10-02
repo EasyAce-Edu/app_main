@@ -48,6 +48,16 @@
                 android:background="#157efb"
                 android:textColor="#ffffff" />
         </RelativeLayout>
+        <TextView
+            android:id="@+id/log"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_layout"
+            android:text="Loading, Please wait"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="#800000"
+            android:background="#ffcece"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
