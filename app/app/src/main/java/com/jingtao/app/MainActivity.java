@@ -7,40 +7,27 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.xml.sax.XMLReader;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyException;
 import java.util.ArrayList;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends Activity {
 
@@ -77,6 +64,13 @@ public class MainActivity extends Activity {
         askQst_QstPool.setOnClickListener(questionAndAnswer);
 
     }
+
+    public void search_view(View view){
+        Intent search_question=new Intent(MainActivity.this,SearchQst.class);
+        search_question.putExtra("qst_lst",listItems);
+        startActivity(search_question);
+    }
+
     View.OnClickListener search_history = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

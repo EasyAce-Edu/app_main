@@ -37,16 +37,16 @@
                 android:id="@+id/textView"
                 android:textStyle="bold"/>
 
-            <Button
-                android:id="@+id/btn_other"
-                android:layout_width="55dp"
-                android:layout_height="30dp"
+            <ImageButton
+                android:id="@+id/btn_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:text="OOO"
-                android:background="#157efb"
-                android:textColor="#ffffff" />
+                android:background="#d4ebf2"
+                android:src="@mipmap/ic_search"
+                android:onClick="search_view"/>
         </RelativeLayout>
         <TextView
             android:id="@+id/log"
