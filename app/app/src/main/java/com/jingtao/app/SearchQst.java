@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -45,6 +46,15 @@ public class SearchQst extends Activity {
             adapter = new ItemAdapter(SearchQst.this, listItems);
             ListView listView = (ListView) findViewById(R.id.result_list);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    Model model = (Model) parent.getItemAtPosition(position);
+                    Intent intent = new Intent(SearchQst.this, QuestionDetail.class);
+                    intent.putExtra("model", model);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override

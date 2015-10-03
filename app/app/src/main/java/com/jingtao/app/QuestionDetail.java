@@ -50,7 +50,7 @@ public class QuestionDetail extends Activity {
         ImageView hint_img=(ImageView)findViewById(R.id.hint_img);
         String hinttype=model.getHintType();
         if(hinttype.equals("1")){
-            hint.setText("Look for hint");
+            hint.setText("Looking for hint");
             hint_img.setImageResource(R.mipmap.ic_hint);
         }else{
             hint.setText("Looking for full solution");
