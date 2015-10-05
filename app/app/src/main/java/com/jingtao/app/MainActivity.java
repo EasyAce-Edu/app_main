@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
     String userName="user1";
     TextView tv;
     TextView log;
+    SwipeRefreshLayout swipeContainer;
 
     @Override
     public void onBackPressed() {
@@ -62,6 +64,26 @@ public class MainActivity extends Activity {
         history_btn.setOnClickListener(search_history);
         Button askQst_QstPool = (Button)findViewById(R.id.btn_QA);
         askQst_QstPool.setOnClickListener(questionAndAnswer);
+
+        //swipeRefresh
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeContainer.setRefreshing(true);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        SetListView(true);
+                        swipeContainer.setRefreshing(false);
+                    }
+                }, 3000);
+            }
+        });
 
     }
 
@@ -96,8 +118,8 @@ public class MainActivity extends Activity {
         }
     };
     protected void SetListView(Boolean QuestionPool){
-        log.setText("Loading, Please wait");
-        log.setBackgroundColor(Color.parseColor("#ffcece"));
+        //log.setText("Loading, Please wait");
+        //log.setBackgroundColor(Color.parseColor("#ffcece"));
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
