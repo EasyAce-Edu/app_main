@@ -78,7 +78,8 @@ public class MainActivity extends Activity {
                 (new Handler()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        SetListView(true);
+                        if (tv.getText() == "My Qst") SetListView(false);
+                        else SetListView(true);
                         swipeContainer.setRefreshing(false);
                     }
                 }, 3000);
