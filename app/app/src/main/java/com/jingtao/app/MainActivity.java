@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
             SetListView(false);
             tv.setText("My Qst");
             log.setText("");
-            log.setBackgroundColor(Color.parseColor("#f0f0f0"));
+            log.setBackgroundColor(Color.parseColor("#00000000"));
         }
     };
     View.OnClickListener questionAndAnswer = new View.OnClickListener() {
@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
                 SetListView(true);
                 tv.setText("Qst Pool");
                 log.setText("");
-                log.setBackgroundColor(Color.parseColor("#f0f0f0"));
+                log.setBackgroundColor(Color.parseColor("#00000000"));
             }
         }
     };
@@ -308,7 +308,7 @@ public class MainActivity extends Activity {
                         json_data.getJSONArray("msgList").toString()));
                 adapter.notifyDataSetChanged();
                 log.setText("");
-                log.setBackgroundColor(Color.parseColor("#f0f0f0"));
+                log.setBackgroundColor(Color.parseColor("#00000000"));
             }catch (Exception e){
                 Log.e("app","Jsonarray exception",e);
             }
