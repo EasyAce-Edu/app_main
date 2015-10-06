@@ -8,6 +8,7 @@ import android.media.Image;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,8 @@ public class QuestionDetail extends Activity {
         }
         ImageView subimg=(ImageView)findViewById(R.id.subject_img);
         subimg.setImageResource(R.mipmap.ic_m);
+        ((TextView)findViewById(R.id.debug)).setText(model.getMsglst()+"\n"+model.getAnsweredby());
+        Log.e("info",model.getMsglst());
 
     }
 

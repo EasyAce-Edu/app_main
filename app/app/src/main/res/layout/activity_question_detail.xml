@@ -79,6 +79,12 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@id/hint_img"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/debug"
+            android:layout_below="@id/CreatedTime"
+            />
     </RelativeLayout>
 
 </RelativeLayout>

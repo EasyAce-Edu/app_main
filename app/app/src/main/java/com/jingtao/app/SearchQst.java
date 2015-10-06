@@ -39,7 +39,8 @@ public class SearchQst extends Activity {
             listItems.clear();
             for(int i=0;i<AllItems.size();i++){
                 if(!text.equals("")&&
-                        (AllItems.get(i).getText().contains(text)||AllItems.get(i).getSubject().contains(text))){
+                        (AllItems.get(i).getText().toLowerCase().contains(text.toLowerCase())||
+                                AllItems.get(i).getSubject().toLowerCase().contains(text.toLowerCase()))){
                         listItems.add(AllItems.get(i));
                 }
             }

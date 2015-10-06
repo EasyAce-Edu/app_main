@@ -207,7 +207,7 @@ public class MainActivity extends Activity {
                     btn.setText("Ask Qst");
                     btn.setBackgroundColor(Color.parseColor("#60a8fc"));
                     btn=(Button)findViewById(R.id.btn_switch);
-                    btn.setText("Switch To Student");
+                    btn.setText("Switch To Tutor");
                     btn.setBackgroundColor(Color.parseColor("#79b6fc"));
                     btn.setOnClickListener(SwitchToTutor);
                     TextView user=(TextView)findViewById(R.id.user);
@@ -306,7 +306,7 @@ public class MainActivity extends Activity {
                 listItems.add(new Model(json_data.getString("subject"),fstMsg.getString("textMsg"),
                         json_data.getString("status"),json_data.getString("hintType"),json_data.getString("askedBy"),
                         json_data.getString("_id"),json_data.getString("createdAt"),json_data.getString("updatedAt"),
-                        json_data.getJSONArray("msgList").toString()));
+                        json_data.getJSONArray("msgList").toString(),json_data.getJSONArray("answeredBy").toString()));
                 adapter.notifyDataSetChanged();
                 log.setText("");
                 log.setBackgroundColor(Color.parseColor("#00000000"));

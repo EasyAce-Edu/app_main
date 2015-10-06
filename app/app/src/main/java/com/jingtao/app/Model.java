@@ -20,7 +20,7 @@ public class Model implements Serializable{
     private String updatedtime;
 
     public Model(String subject, String text, String status, String hintType,
-                 String askedby,String id,String createdtime,String updatedtime,String msglst) {
+                 String askedby,String id,String createdtime,String updatedtime,String msglst,String answeredBy) {
         super();
         this.subject = subject;
         this.text = text;
@@ -31,6 +31,7 @@ public class Model implements Serializable{
         this.createdtime=createdtime;
         this.updatedtime=updatedtime;
         this.msglst=msglst;
+        this.answeredby=answeredBy;
     }
 
     public String getSubject(){
