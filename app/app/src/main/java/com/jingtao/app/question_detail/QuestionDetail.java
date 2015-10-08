@@ -1,4 +1,4 @@
-package com.jingtao.app;
+package com.jingtao.app.question_detail;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -14,7 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.jingtao.app.Model;
+import com.jingtao.app.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 
@@ -59,9 +66,17 @@ public class QuestionDetail extends Activity {
         }
         ImageView subimg=(ImageView)findViewById(R.id.subject_img);
         subimg.setImageResource(R.mipmap.ic_m);
-        ((TextView)findViewById(R.id.debug)).setText(model.getMsglst()+"\n"+model.getAnsweredby());
-        Log.e("info",model.getMsglst());
+        ((TextView)findViewById(R.id.debug)).setText(model.getMsglst() + "\n" + model.getAnsweredby());//DEBUG
+        Log.e("info", model.getMsglst());//DEBUG
+        LinearLayout container = (LinearLayout)findViewById(R.id.container);
+        try {
+            JSONArray msgArr = new JSONArray(model.getMsglst());
+            MessageView msgView = new MessageView(this, ((JSONObject)msgArr.get(0)));
+            container.addView(msgView);
 
+        }catch(Exception e){
+            Log.e("Exception",e.toString());
+        }
     }
 
     @Override

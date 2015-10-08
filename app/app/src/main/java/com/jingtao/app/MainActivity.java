@@ -1,10 +1,8 @@
 package com.jingtao.app;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +18,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jingtao.app.question_detail.QuestionDetail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
