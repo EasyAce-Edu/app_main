@@ -101,8 +101,8 @@ public class MainActivity extends Activity {
             drawerLayout.closeDrawer(leftRL);
             SetListView(false);
             tv.setText("My Qst");
-            log.setText("");
-            log.setBackgroundColor(Color.parseColor("#00000000"));
+            log.setText("Loading, please waite");
+            log.setBackgroundColor(Color.parseColor("#ffcece"));
         }
     };
     View.OnClickListener questionAndAnswer = new View.OnClickListener() {
@@ -114,8 +114,8 @@ public class MainActivity extends Activity {
             }else {
                 SetListView(true);
                 tv.setText("Qst Pool");
-                log.setText("");
-                log.setBackgroundColor(Color.parseColor("#00000000"));
+                log.setText("Loading, please waite");
+                log.setBackgroundColor(Color.parseColor("#ffcece"));
             }
         }
     };

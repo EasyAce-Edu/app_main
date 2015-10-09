@@ -1,7 +1,6 @@
 package com.jingtao.app.question_detail;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -15,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jingtao.app.R;
@@ -47,20 +48,37 @@ import java.util.zip.ZipInputStream;
 public class MessageView extends LinearLayout {
     protected String MsgText;
     protected String ZipURL;
+    protected Boolean QuestionAsker;
+    protected ProgressBar pb;
+    protected String sentBy;
     MediaPlayer player;
     final MediaPlayer mp = new MediaPlayer();
-    public MessageView(Context context,JSONObject msg) {
+    public MessageView(Context context,JSONObject msg,Boolean QuestionAsker) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.message_view, this);
         try {
             this.MsgText = msg.getString("textMsg");
             this.ZipURL = msg.getString("zipFileUri");
+            this.sentBy = msg.getString("sentBy");
         }catch(Exception e){
             Log.e("Exception", e.toString());
         }
+        TextView sender = (TextView)findViewById(R.id.sender);
         ((TextView)findViewById(R.id.messageText)).setText(this.MsgText);
+        sender.setText(this.sentBy + ":");
         new DownloadZip().execute(ZipURL);
+        this.QuestionAsker=QuestionAsker;
+        LinearLayout msg_view = (LinearLayout)findViewById(R.id.MsgView);
+        if(this.QuestionAsker){
+            msg_view.setBackgroundColor(Color.parseColor("#d4ebf2"));
+            sender.setTextColor(Color.parseColor("#1e20ff"));
+        }else {
+            msg_view.setBackgroundColor(Color.parseColor("#ebf2d4"));
+            sender.setTextColor(Color.parseColor("#02d100"));
+        }
+        pb = (ProgressBar)findViewById(R.id.progressBar);
+        pb.setProgress(0);
     }
 
     class DownloadZip extends AsyncTask<String, Void, String> {
@@ -78,8 +96,9 @@ public class MessageView extends LinearLayout {
                     zip.delete();
                 }
                 zipUrl = new URL(urls[0]);
-                URLConnection conection = zipUrl.openConnection();
-                conection.connect();
+                URLConnection connection = zipUrl.openConnection();
+                connection.connect();
+                int lenghtOfFile = connection.getContentLength();
                 in=new BufferedInputStream(zipUrl.openStream());
                 output=new FileOutputStream(zip);
                 byte data[] = new byte[1024];
@@ -89,6 +108,7 @@ public class MessageView extends LinearLayout {
                 while ((count = in.read(data)) != -1) {
                     total += count;
                     output.write(data, 0, count);
+                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
                 }                // Flush output
                 output.flush();
                 // Close streams
@@ -100,7 +120,9 @@ public class MessageView extends LinearLayout {
 
             return null;
         }
-
+        protected void publishProgress(String...progress){
+            pb.setProgress(Integer.parseInt(progress[0]));
+        }
         protected void onPostExecute(String str) {
             Bitmap bitmap;
             Bitmap bitmap_large;
@@ -131,6 +153,9 @@ public class MessageView extends LinearLayout {
                         bitmap_large = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), img_uri);
                         bitmap = Bitmap.createScaledBitmap(bitmap_large, 300, 300, true);
                         img_view.setImageBitmap(bitmap);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        lp.setMargins(10, 0, 20, 0);
+                        img_view.setLayoutParams(lp);
                         imgViews.addView(img_view);
                     } catch (Exception e) {
                         Log.e("Exception", e.toString());
@@ -140,21 +165,24 @@ public class MessageView extends LinearLayout {
             final String sound_path = Environment.getExternalStorageDirectory().getPath() + "/QA_app/0.3gp";
             File sound=new File(sound_path);
             if(sound.exists()){
-                Button soundBtn=new Button(getContext());
-                soundBtn.setText("Play Sound");
+                ImageButton soundBtn=new ImageButton(getContext());
+                if(QuestionAsker) {
+                    soundBtn.setBackgroundColor(Color.parseColor("#99d0e0"));
+                }else {
+                    soundBtn.setBackgroundColor(Color.parseColor("#d0e099"));
+                }
+                soundBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                soundBtn.setImageResource(R.mipmap.ic_speaker);
+                LayoutParams params = new LayoutParams(
+                        LayoutParams.MATCH_PARENT,120
+                );
+                params.setMargins(10, 20,10, 20);
+                soundBtn.setLayoutParams(params);
                 LinearLayout body = (LinearLayout)findViewById(R.id.msg_body);
                 body.addView(soundBtn);
                 soundBtn.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /*MediaPlayer player = new MediaPlayer();
-                        try {
-                            player.reset();
-                            player.setDataSource(sound_path);
-                            player.prepare();
-                        }catch (Exception e){
-                            Log.e("Exception",e.toString());
-                        }*/
                         if (mp.isPlaying()) {
                             mp.stop();
                         }
@@ -173,9 +201,11 @@ public class MessageView extends LinearLayout {
                     }
                 });
             }
-
+            pb.setVisibility(View.GONE);
 
         }
+
+
 
     }
     private boolean unpackZip(String path, String zipname,String folder)

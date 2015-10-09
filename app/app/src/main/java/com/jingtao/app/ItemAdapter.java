@@ -49,8 +49,12 @@ public class ItemAdapter extends ArrayAdapter<Model> {
 
             // 4. Set the text for textView
             String Subject = modelsArrayList.get(position).getSubject();
-            if(Subject.equals("math")){
+            if(Subject.toLowerCase().substring(0,1).equals("m")) {
                 imgView.setImageResource(R.mipmap.ic_m);
+            }else if(Subject.substring(0, 1).toLowerCase().equals("s")) {
+                imgView.setImageResource(R.mipmap.ic_s);
+            }else if(Subject.substring(0,1).toLowerCase().equals("c")) {
+                imgView.setImageResource(R.mipmap.ic_c);
             }else{
                 imgView.setBackgroundColor(Color.parseColor("#5ca8cd"));
             }
@@ -59,7 +63,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             if(modelsArrayList.get(position).getHintType().equals("1")){
                 hint.setImageResource(R.mipmap.ic_hint);
             }else{
-                hint.setImageResource(R.mipmap.ic_ans);;
+                hint.setImageResource(R.mipmap.ic_ans);
             }
             if(modelsArrayList.get(position).getStatus().equals("close")){
                 row.setBackgroundColor(Color.parseColor("#d5d5d5"));

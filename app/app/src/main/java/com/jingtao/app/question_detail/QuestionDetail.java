@@ -1,12 +1,8 @@
 package com.jingtao.app.question_detail;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,17 +12,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.jingtao.app.Model;
 import com.jingtao.app.R;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 
 public class QuestionDetail extends Activity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,15 +57,26 @@ public class QuestionDetail extends Activity {
             hint_img.setImageResource(R.mipmap.ic_ans);
         }
         ImageView subimg=(ImageView)findViewById(R.id.subject_img);
-        subimg.setImageResource(R.mipmap.ic_m);
-        ((TextView)findViewById(R.id.debug)).setText(model.getMsglst() + "\n" + model.getAnsweredby());//DEBUG
+        String Subject = model.getSubject();
+        if(Subject.toLowerCase().substring(0,1).equals("m")) {
+            subimg.setImageResource(R.mipmap.ic_m);
+        }else if(Subject.substring(0, 1).toLowerCase().equals("s")){
+            subimg.setImageResource(R.mipmap.ic_s);
+        }else if(Subject.substring(0,1).toLowerCase().equals("c")) {
+            subimg.setImageResource(R.mipmap.ic_c);
+        }else{
+            subimg.setBackgroundColor(Color.parseColor("#5ca8cd"));
+        }
         Log.e("info", model.getMsglst());//DEBUG
         LinearLayout container = (LinearLayout)findViewById(R.id.container);
         try {
             JSONArray msgArr = new JSONArray(model.getMsglst());
-            MessageView msgView = new MessageView(this, ((JSONObject)msgArr.get(0)));
-            container.addView(msgView);
-
+            Boolean QuestionAsker=true;
+            for(int i=0;i<msgArr.length();i++) {
+                MessageView msgView = new MessageView(this, ((JSONObject) msgArr.get(i)),QuestionAsker);
+                QuestionAsker=!QuestionAsker;
+                container.addView(msgView);
+            }
         }catch(Exception e){
             Log.e("Exception",e.toString());
         }
