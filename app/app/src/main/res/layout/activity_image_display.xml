@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.qa.appstudent.ImageDisplay">
+
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#ffffff">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/back"
+            android:src="@mipmap/ic_back"
+            android:background="#ffffff" />
+
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:id="@+id/delete"
+            android:src="@mipmap/ic_delete"
+            android:background="#ffffff" />
+    </RelativeLayout>
+    <com.qa.appstudent.TouchImageView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/image_view"
+        android:layout_below="@+id/header_layout" />
+</RelativeLayout>
