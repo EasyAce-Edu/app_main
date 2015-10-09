@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">app</string>
     <string name="Menu">Menu</string>
-
+    <string name="action_delete">delete</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_question_detail">QuestionDetail</string>
