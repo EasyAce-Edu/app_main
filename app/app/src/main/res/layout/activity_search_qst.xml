@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jingtao.app.SearchQst">
+    tools:context="com.jingtao.app.main_page_list_view.SearchQst">
 
     <RelativeLayout
         android:id="@+id/header_layout"

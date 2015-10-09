@@ -1,4 +1,4 @@
-package com.jingtao.app;
+package com.jingtao.app.main_page_list_view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.jingtao.app.R;
 import com.jingtao.app.question_detail.QuestionDetail;
 
 import java.util.ArrayList;

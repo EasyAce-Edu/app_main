@@ -24,7 +24,7 @@
             android:label="@string/title_activity_question_detail" >
         </activity>
         <activity
-            android:name=".SearchQst"
+            android:name=".main_page_list_view.SearchQst"
             android:label="@string/title_activity_search_qst" >
         </activity>
     </application>

@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.jingtao.app.Model;
+import com.jingtao.app.main_page_list_view.Model;
 import com.jingtao.app.R;
 import org.json.JSONArray;
 import org.json.JSONObject;

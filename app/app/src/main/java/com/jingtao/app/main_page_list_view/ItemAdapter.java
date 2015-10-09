@@ -1,4 +1,4 @@
-package com.jingtao.app;
+package com.jingtao.app.main_page_list_view;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.os.Bundle;
+
+import com.jingtao.app.R;
+import com.jingtao.app.main_page_list_view.Model;
 
 public class ItemAdapter extends ArrayAdapter<Model> {
 

@@ -1,4 +1,4 @@
-package com.jingtao.app;
+package com.jingtao.app.main_page_list_view;
 
 import org.json.JSONArray;
 
