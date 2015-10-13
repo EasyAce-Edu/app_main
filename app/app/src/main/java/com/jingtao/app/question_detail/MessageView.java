@@ -51,6 +51,7 @@ public class MessageView extends LinearLayout {
     protected Boolean QuestionAsker;
     protected ProgressBar pb;
     protected String sentBy;
+    protected String id;
     MediaPlayer player;
     final MediaPlayer mp = new MediaPlayer();
     public MessageView(Context context,JSONObject msg,Boolean QuestionAsker) {
@@ -61,6 +62,7 @@ public class MessageView extends LinearLayout {
             this.MsgText = msg.getString("textMsg");
             this.ZipURL = msg.getString("zipFileUri");
             this.sentBy = msg.getString("sentBy");
+            this.id=msg.getString("_id");
         }catch(Exception e){
             Log.e("Exception", e.toString());
         }
@@ -82,7 +84,6 @@ public class MessageView extends LinearLayout {
     }
 
     class DownloadZip extends AsyncTask<String, Void, String> {
-
         protected String doInBackground(String... urls) {
             URL zipUrl;
             InputStream in;
@@ -91,7 +92,7 @@ public class MessageView extends LinearLayout {
             long total;
             try {
                 String root = Environment.getExternalStorageDirectory().getPath();
-                File zip = new File(root + "/QA_app.zip");
+                File zip = new File(root +"/"+id+".zip");
                 if (zip.exists()){
                     zip.delete();
                 }
@@ -127,7 +128,7 @@ public class MessageView extends LinearLayout {
             Bitmap bitmap;
             Bitmap bitmap_large;
             try {
-                String unzipDest=Environment.getExternalStorageDirectory().getPath()+"/QA_app";
+                String unzipDest=Environment.getExternalStorageDirectory().getPath()+"/QA_app/"+id;
                 File folder = new File(unzipDest);
                 if (!(folder.exists())) {
                     folder.mkdir();
@@ -138,12 +139,12 @@ public class MessageView extends LinearLayout {
                     }
                     folder.mkdir();
                 }
-                unpackZip(Environment.getExternalStorageDirectory().getPath(), "/QA_app.zip", "/QA_app");
+                unpackZip(Environment.getExternalStorageDirectory().getPath(), "/"+id+".zip", "/QA_app/"+id);
             }catch(Exception e){
                 Log.e("Exception", e.toString());
             }
             for(int i=0;i<5;i++) {
-                String img_path = Environment.getExternalStorageDirectory().getPath() + "/QA_app/"+i+".jpg";
+                String img_path = Environment.getExternalStorageDirectory().getPath() + "/QA_app/"+id+"/"+i+".jpg";
                 File img=new File(img_path);
                 if(img.exists()) {
                     try {
@@ -162,7 +163,7 @@ public class MessageView extends LinearLayout {
                     }
                 }
             }
-            final String sound_path = Environment.getExternalStorageDirectory().getPath() + "/QA_app/0.3gp";
+            final String sound_path = Environment.getExternalStorageDirectory().getPath() + "/QA_app/"+id+"/0.3gp";
             File sound=new File(sound_path);
             if(sound.exists()){
                 ImageButton soundBtn=new ImageButton(getContext());
