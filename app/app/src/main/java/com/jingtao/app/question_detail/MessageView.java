@@ -96,6 +96,10 @@ public class MessageView extends LinearLayout {
                 if (zip.exists()){
                     zip.delete();
                 }
+                File folder = new File(root +"/easy_ace");
+                if (!folder.exists()){
+                    folder.mkdir();
+                }
                 zipUrl = new URL(urls[0]);
                 URLConnection connection = zipUrl.openConnection();
                 connection.connect();
@@ -128,7 +132,7 @@ public class MessageView extends LinearLayout {
             Bitmap bitmap;
             Bitmap bitmap_large;
             try {
-                String unzipDest=Environment.getExternalStorageDirectory().getPath()+"/QA_app/"+id;
+                String unzipDest=Environment.getExternalStorageDirectory().getPath()+"/easy_ace/"+id;
                 File folder = new File(unzipDest);
                 if (!(folder.exists())) {
                     folder.mkdir();
@@ -139,12 +143,12 @@ public class MessageView extends LinearLayout {
                     }
                     folder.mkdir();
                 }
-                unpackZip(Environment.getExternalStorageDirectory().getPath(), "/"+id+".zip", "/QA_app/"+id);
+                unpackZip(Environment.getExternalStorageDirectory().getPath(), "/"+id+".zip", "/easy_ace/"+id);
             }catch(Exception e){
                 Log.e("Exception", e.toString());
             }
             for(int i=0;i<5;i++) {
-                String img_path = Environment.getExternalStorageDirectory().getPath() + "/QA_app/"+id+"/"+i+".jpg";
+                String img_path = Environment.getExternalStorageDirectory().getPath() + "/easy_ace/"+id+"/"+i+".jpg";
                 File img=new File(img_path);
                 if(img.exists()) {
                     try {
@@ -163,7 +167,7 @@ public class MessageView extends LinearLayout {
                     }
                 }
             }
-            final String sound_path = Environment.getExternalStorageDirectory().getPath() + "/QA_app/"+id+"/0.3gp";
+            final String sound_path = Environment.getExternalStorageDirectory().getPath() + "/easy_ace/"+id+"/0.3gp";
             File sound=new File(sound_path);
             if(sound.exists()){
                 ImageButton soundBtn=new ImageButton(getContext());

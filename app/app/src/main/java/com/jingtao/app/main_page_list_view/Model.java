@@ -18,9 +18,12 @@ public class Model implements Serializable{
     private String answeredby;
     private String createdtime;
     private String updatedtime;
+    private boolean IsStudent;
+
 
     public Model(String subject, String text, String status, String hintType,
-                 String askedby,String id,String createdtime,String updatedtime,String msglst,String answeredBy) {
+                 String askedby,String id,String createdtime,String updatedtime,String msglst,String answeredBy,
+                 boolean IsStudent) {
         super();
         this.subject = subject;
         this.text = text;
@@ -32,6 +35,7 @@ public class Model implements Serializable{
         this.updatedtime=updatedtime;
         this.msglst=msglst;
         this.answeredby=answeredBy;
+        this.IsStudent=IsStudent;
     }
 
     public String getSubject(){
@@ -67,4 +71,5 @@ public class Model implements Serializable{
     public String getMsglst(){
         return this.msglst;
     }
+    public boolean IsStudent(){return this.IsStudent;}
 }

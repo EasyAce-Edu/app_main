@@ -72,6 +72,7 @@ public class QuestionDetail extends Activity {
         try {
             JSONArray msgArr = new JSONArray(model.getMsglst());
             Boolean QuestionAsker=true;
+            Log.e("info",msgArr.toString());
             for(int i=0;i<msgArr.length();i++) {
                 MessageView msgView = new MessageView(this, ((JSONObject) msgArr.get(i)),QuestionAsker);
                 QuestionAsker=!QuestionAsker;

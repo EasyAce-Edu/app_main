@@ -1,9 +1,16 @@
 package com.jingtao.app.main_page_list_view;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jingtao.app.R;
+import com.jingtao.app.SaveQuestion;
 import com.jingtao.app.main_page_list_view.Model;
 
 public class ItemAdapter extends ArrayAdapter<Model> {
@@ -29,8 +37,8 @@ public class ItemAdapter extends ArrayAdapter<Model> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final Model model=modelsArrayList.get(position);
         // 1. Create inflater
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -47,10 +55,11 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             TextView text_tv = (TextView) rowView.findViewById(R.id.text_tv);
             ImageView hint=(ImageView) rowView.findViewById(R.id.hint);
             RelativeLayout row = (RelativeLayout)rowView.findViewById(R.id.row);
+           final ImageView star = (ImageView)rowView.findViewById(R.id.star);
 
 
             // 4. Set the text for textView
-            String Subject = modelsArrayList.get(position).getSubject();
+            String Subject = model.getSubject();
             if(Subject.toLowerCase().substring(0,1).equals("m")) {
                 imgView.setImageResource(R.mipmap.ic_m);
             }else if(Subject.substring(0, 1).toLowerCase().equals("s")) {
@@ -69,6 +78,26 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             }
             if(modelsArrayList.get(position).getStatus().equals("close")){
                 row.setBackgroundColor(Color.parseColor("#d5d5d5"));
+            }
+            final SaveQuestion sq=new SaveQuestion(getContext(),model);
+            if(model.IsStudent()) {
+                if (sq.checksaved()) {
+                    star.setImageResource(R.mipmap.ic_star_filled);
+                } else {
+                    star.setImageResource(R.mipmap.ic_star_unfilled);
+                }
+                star.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (sq.checksaved()) {//already in the saved list
+                            star.setImageResource(R.mipmap.ic_star_unfilled);
+                            sq.delete();
+                        } else {//not saved
+                            star.setImageResource(R.mipmap.ic_star_filled);
+                            sq.save();
+                        }
+                    }
+                });
             }
 
 

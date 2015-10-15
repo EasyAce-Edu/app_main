@@ -100,8 +100,8 @@
                 android:id="@+id/Logo"
                 android:layout_width="fill_parent"
                 android:layout_height="160dp"
-                android:background="#157efb"
-                android:src="@mipmap/ic_launcher"/>
+                android:background="#0671ef"
+                android:src="@mipmap/ic_easyace"/>
             <TextView
                 android:id="@+id/user"
                 android:textSize="20dp"
@@ -109,12 +109,12 @@
                 android:gravity="center"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#157efb"/>
+                android:background="#0671ef"/>
             <Button
                 android:id="@+id/btn_profile"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:background="#2e8cfb"
+                android:background="#157ef9"
                 android:textColor="#000000"
                 android:text="Profile"
                 android:drawableLeft="@mipmap/ic_profile"
@@ -125,10 +125,21 @@
                 android:id="@+id/btn_history"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:background="#479afb"
+                android:background="#2e8cfb"
                 android:textColor="#000000"
                 android:text="Qst History"
                 android:drawableLeft="@mipmap/ic_correct"
+                android:paddingLeft="30dp"
+                android:drawablePadding="-70dp"
+                />
+            <Button
+                android:id="@+id/btn_stared"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:background="#479afb"
+                android:textColor="#000000"
+                android:text="Stared"
+                android:drawableLeft="@mipmap/ic_star_black"
                 android:paddingLeft="30dp"
                 android:drawablePadding="-70dp"
                 />

@@ -40,7 +40,6 @@ public class MainActivity extends Activity {
     DrawerLayout drawerLayout;
     Boolean IsStudent=true;
     ArrayList<Model> listItems = new ArrayList<>();
-    //ArrayList listItems = new ArrayList<>();
     ItemAdapter adapter;
     String userName="user1";
     TextView tv;
@@ -63,11 +62,12 @@ public class MainActivity extends Activity {
         findViewById(R.id.btn_switch).setOnClickListener(SwitchToTutor);
         TextView user=(TextView)findViewById(R.id.user);
         user.setText(userName + "\n" + (IsStudent ? "Student" : "Tutor"));
-        SetListView(true);
         Button history_btn=(Button)findViewById(R.id.btn_history);
         history_btn.setOnClickListener(search_history);
         Button askQst_QstPool = (Button)findViewById(R.id.btn_QA);
         askQst_QstPool.setOnClickListener(questionAndAnswer);
+        Button btn_stared = (Button)findViewById(R.id.btn_stared);
+        btn_stared.setOnClickListener(staredQuestion);
 
         //swipeRefresh
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
                 }, 3000);
             }
         });
-
+        SetListView(true);
     }
 
     public void search_view(View view){
@@ -108,6 +108,25 @@ public class MainActivity extends Activity {
             log.setBackgroundColor(Color.parseColor("#ffcece"));
         }
     };
+    View.OnClickListener staredQuestion = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            drawerLayout.closeDrawer(leftRL);
+            SaveQuestion sq = new SaveQuestion(MainActivity.this);
+            listItems = sq.ReadSavedQuestion();
+
+            // Defined Array values to show in ListView
+            ListView listView = (ListView)findViewById(R.id.list);
+            adapter = new ItemAdapter(MainActivity.this, listItems);
+            // Assign adapter to ListView
+
+            Log.e("INFO", listItems.toString() + adapter.toString());
+            listView.setAdapter(adapter);
+            tv.setText("Stared Qst");
+            swipeContainer.setEnabled(false);
+
+        }
+    };
     View.OnClickListener questionAndAnswer = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -123,6 +142,7 @@ public class MainActivity extends Activity {
         }
     };
     protected void SetListView(Boolean QuestionPool){
+        swipeContainer.setEnabled(true);
         //log.setText("Loading, Please wait");
         //log.setBackgroundColor(Color.parseColor("#ffcece"));
         ListView listView = (ListView) findViewById(R.id.list);
@@ -186,6 +206,8 @@ public class MainActivity extends Activity {
                     TextView user=(TextView)findViewById(R.id.user);
                     user.setBackgroundColor(Color.parseColor("#7efb15"));
                     user.setText(userName + "\n" + (IsStudent ? "Student" : "Tutor"));
+                    btn = (Button) findViewById(R.id.btn_stared);
+                    btn.setVisibility(View.GONE);
                     SetListView(false);
                 }
             }, 500);
@@ -201,12 +223,12 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
                     leftRL.setBackgroundColor(Color.parseColor("#abd1fd"));
-                    findViewById(R.id.Logo).setBackgroundColor(Color.parseColor("#157efb"));
+                    findViewById(R.id.Logo).setBackgroundColor(Color.parseColor("#0671ef"));
                     Button btn=(Button)findViewById(R.id.btn_profile);
-                    btn.setBackgroundColor(Color.parseColor("#2e8cfb"));
+                    btn.setBackgroundColor(Color.parseColor("#157ef9"));
                     btn=(Button)findViewById(R.id.btn_history);
                     btn.setText("My Qst");
-                    btn.setBackgroundColor(Color.parseColor("#479afb"));
+                    btn.setBackgroundColor(Color.parseColor("#2e8cfb"));
                     btn=(Button)findViewById(R.id.btn_QA);
                     btn.setText("Ask Qst");
                     btn.setBackgroundColor(Color.parseColor("#60a8fc"));
@@ -215,8 +237,10 @@ public class MainActivity extends Activity {
                     btn.setBackgroundColor(Color.parseColor("#79b6fc"));
                     btn.setOnClickListener(SwitchToTutor);
                     TextView user=(TextView)findViewById(R.id.user);
-                    user.setBackgroundColor(Color.parseColor("#157efb"));
+                    user.setBackgroundColor(Color.parseColor("#0671ef"));
                     user.setText(userName + "\n" + (IsStudent ? "Student" : "Tutor"));
+                    btn = (Button) findViewById(R.id.btn_stared);
+                    btn.setVisibility(View.VISIBLE);
                     SetListView(false);
                 }
             }, 500);
@@ -310,7 +334,7 @@ public class MainActivity extends Activity {
                 listItems.add(new Model(json_data.getString("subject"),fstMsg.getString("textMsg"),
                         json_data.getString("status"),json_data.getString("hintType"),json_data.getString("askedBy"),
                         json_data.getString("_id"),json_data.getString("createdAt"),json_data.getString("updatedAt"),
-                        json_data.getJSONArray("msgList").toString(),json_data.getJSONArray("answeredBy").toString()));
+                        json_data.getJSONArray("msgList").toString(),json_data.getString("answeredBy"),IsStudent));
                 adapter.notifyDataSetChanged();
                 log.setText("");
                 log.setBackgroundColor(Color.parseColor("#00000000"));
