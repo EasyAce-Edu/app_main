@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -39,12 +40,15 @@ public class MainActivity extends Activity {
     RelativeLayout leftRL;
     DrawerLayout drawerLayout;
     Boolean IsStudent=true;
-    ArrayList<Model> listItems = new ArrayList<>();
+    public ArrayList<Model> listItems = new ArrayList<>();
     ItemAdapter adapter;
     String userName="user1";
     TextView tv;
     TextView log;
     SwipeRefreshLayout swipeContainer;
+    private boolean mSortable = false; // ソート中かどうか
+    public Model DragQuestion; // ドラッグ中のオブジェクト
+    private int mPosition = -1; // ドラッグ位置
 
     @Override
     public void onBackPressed() {
@@ -116,14 +120,51 @@ public class MainActivity extends Activity {
             listItems = sq.ReadSavedQuestion();
 
             // Defined Array values to show in ListView
-            ListView listView = (ListView)findViewById(R.id.list);
-            adapter = new ItemAdapter(MainActivity.this, listItems);
+            final ListView listView = (ListView)findViewById(R.id.list);
+            adapter = new ItemAdapter(MainActivity.this, listItems,true);
             // Assign adapter to ListView
 
             Log.e("INFO", listItems.toString() + adapter.toString());
             listView.setAdapter(adapter);
             tv.setText("Stared Qst");
             swipeContainer.setEnabled(false);
+
+            listView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent event) {
+                    if (!mSortable) {
+                        return false;
+                    }
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            break;
+                        }
+                        case MotionEvent.ACTION_MOVE: {
+                            // 現在のポジションを取得し
+                            int position = listView.pointToPosition((int) event.getX(), (int) event.getY());
+                            if (position < 0) {
+                                break;
+                            }
+                            // 移動が検出されたら入れ替え
+                            if (position != mPosition) {
+                                mPosition = position;
+                                adapter.remove(DragQuestion);
+                                adapter.insert(DragQuestion, mPosition);
+
+                                Log.e("info", "Question" + adapter.getModelsArrayList().toString());
+                            }
+                            return true;
+                        }
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                        case MotionEvent.ACTION_OUTSIDE: {
+                            stopDrag();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
 
         }
     };
@@ -347,5 +388,21 @@ public class MainActivity extends Activity {
             log.setText("Error: Bad Data");
         }
 
+    }
+
+
+
+    public void startDrag(Model string) {
+        mPosition = -1;
+        mSortable = true;
+        DragQuestion = string;
+        adapter.notifyDataSetChanged(); // ハイライト反映・解除の為
+    }
+
+    public void stopDrag() {
+        mPosition = -1;
+        mSortable = false;
+        DragQuestion = null;
+        adapter.notifyDataSetChanged(); // ハイライト反映・解除の為
     }
 }

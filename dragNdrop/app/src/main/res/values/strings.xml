@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">dragNdrop</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="string-array">
+        <item>a</item>
+        <item>b</item>
+        <item>d</item>
+        <item>c</item>
+        <item>e</item>
+        <item>a</item>
+        <item>a</item>
+    </string-array>
+</resources>

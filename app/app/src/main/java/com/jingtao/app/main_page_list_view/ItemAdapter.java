@@ -6,19 +6,25 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jingtao.app.MainActivity;
 import com.jingtao.app.R;
 import com.jingtao.app.SaveQuestion;
 import com.jingtao.app.main_page_list_view.Model;
@@ -27,6 +33,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
 
     private final Context context;
     private final ArrayList<Model> modelsArrayList;
+    private final boolean drag;
 
     public ItemAdapter(Context context, ArrayList<Model> modelsArrayList) {
 
@@ -34,7 +41,23 @@ public class ItemAdapter extends ArrayAdapter<Model> {
 
         this.context = context;
         this.modelsArrayList = modelsArrayList;
+        this.drag=false;
     }
+    public ItemAdapter(Context context, ArrayList<Model> modelsArrayList,boolean drag) {
+
+        super(context, R.layout.item, modelsArrayList);
+
+        this.context = context;
+        this.modelsArrayList = modelsArrayList;
+        this.drag=drag;
+    }
+
+
+
+    public ArrayList<Model> getModelsArrayList(){
+        return modelsArrayList;
+    }
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -99,6 +122,39 @@ public class ItemAdapter extends ArrayAdapter<Model> {
                     }
                 });
             }
+        if(!drag){
+            ImageView handler = (ImageView)rowView.findViewById(R.id.handler);
+            handler.setVisibility(View.GONE);
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)star.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+            star.setLayoutParams(params);
+
+        }else{
+            ImageView handler = (ImageView)rowView.findViewById(R.id.handler);
+            final Model question = modelsArrayList.get(position);
+
+            // ハンドルタップでソート開始
+            handler.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                        ((MainActivity)getContext()).startDrag(question);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            // ドラッグ行のハイライト
+            if (((MainActivity)getContext()).DragQuestion != null && ((MainActivity)getContext()).DragQuestion .equals(question)) {
+                row.setBackgroundColor(Color.parseColor("#9933b5e5"));
+            } else {
+                row.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
+
 
 
 
