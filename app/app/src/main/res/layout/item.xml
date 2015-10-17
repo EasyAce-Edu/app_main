@@ -39,13 +39,14 @@
         android:id="@+id/star"
         android:layout_toLeftOf="@+id/handler"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
         />
     <ImageView
         android:id="@+id/handler"
-        android:layout_width="20dp"
+        android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:background="#000000"
+        android:src="@mipmap/ic_drag"
+        android:scaleType="fitXY"
         />
 </RelativeLayout>

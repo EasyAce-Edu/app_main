@@ -40,12 +40,12 @@ public class MainActivity extends Activity {
     RelativeLayout leftRL;
     DrawerLayout drawerLayout;
     Boolean IsStudent=true;
-    public ArrayList<Model> listItems = new ArrayList<>();
-    ItemAdapter adapter;
     String userName="user1";
     TextView tv;
+    SwipeRefreshLayout swipeContainer; //Swipe Refresh
+    public ArrayList<Model> listItems = new ArrayList<>(); // values in ListView
+    ItemAdapter adapter;
     TextView log;
-    SwipeRefreshLayout swipeContainer;
     private boolean mSortable = false; // ソート中かどうか
     public Model DragQuestion; // ドラッグ中のオブジェクト
     private int mPosition = -1; // ドラッグ位置

@@ -149,7 +149,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
 
             // ドラッグ行のハイライト
             if (((MainActivity)getContext()).DragQuestion != null && ((MainActivity)getContext()).DragQuestion .equals(question)) {
-                row.setBackgroundColor(Color.parseColor("#9933b5e5"));
+                row.setBackgroundColor(Color.parseColor("#d4ebf2"));//9933b5e5
             } else {
                 row.setBackgroundColor(Color.TRANSPARENT);
             }
