@@ -73,6 +73,22 @@ public class SaveQuestion {
         }
         return false;
     }
+    public boolean SaveQuestions(ArrayList<Model> questions){
+        try {
+            File save_file = new File(path);
+            FileOutputStream fout = new FileOutputStream(save_file);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(questions);
+            fout.close();
+            oos.close();
+            return true;
+        }catch(Exception e){
+            Log.e("error",e.toString());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean save(){
         try {
             File save_file = new File(path);

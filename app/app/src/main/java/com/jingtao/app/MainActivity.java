@@ -150,8 +150,8 @@ public class MainActivity extends Activity {
                                 mPosition = position;
                                 adapter.remove(DragQuestion);
                                 adapter.insert(DragQuestion, mPosition);
-
-                                Log.e("info", "Question" + adapter.getModelsArrayList().toString());
+                                SaveQuestion sq = new SaveQuestion(MainActivity.this);
+                                sq.SaveQuestions(adapter.getModelsArrayList());
                             }
                             return true;
                         }
