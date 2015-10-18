@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.jingtao.app.main_page_list_view.ItemAdapter;
 import com.jingtao.app.main_page_list_view.Model;
 import com.jingtao.app.main_page_list_view.SearchQst;
@@ -114,56 +116,60 @@ public class MainActivity extends Activity {
         @Override
         public void onClick(View v) {
             drawerLayout.closeDrawer(leftRL);
-            SaveQuestion sq = new SaveQuestion(MainActivity.this);
-            listItems = sq.ReadSavedQuestion();
-
-            // Defined Array values to show in ListView
-            final ListView listView = (ListView)findViewById(R.id.list);
-            adapter = new ItemAdapter(MainActivity.this, listItems,true);
-            // Assign adapter to ListView
-            listView.setAdapter(adapter);
-            tv.setText("Stared Qst");
-            swipeContainer.setEnabled(false);
-
-            listView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent event) {
-                    if (!mSortable) {
-                        return false;
-                    }
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            break;
-                        }
-                        case MotionEvent.ACTION_MOVE: {
-                            // 現在のポジションを取得し
-                            int position = listView.pointToPosition((int) event.getX(), (int) event.getY());
-                            if (position < 0) {
-                                break;
-                            }
-                            // 移動が検出されたら入れ替え
-                            if (position != mPosition) {
-                                mPosition = position;
-                                adapter.remove(DragQuestion);
-                                adapter.insert(DragQuestion, mPosition);
-                                SaveQuestion sq = new SaveQuestion(MainActivity.this);
-                                sq.SaveQuestions(adapter.getModelsArrayList());
-                            }
-                            return true;
-                        }
-                        case MotionEvent.ACTION_UP:
-                        case MotionEvent.ACTION_CANCEL:
-                        case MotionEvent.ACTION_OUTSIDE: {
-                            stopDrag();
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            });
-
+            star_listview();
         }
     };
+
+    protected void star_listview(){
+        SaveQuestion sq = new SaveQuestion(MainActivity.this);
+        listItems = sq.ReadSavedQuestion();
+
+        // Defined Array values to show in ListView
+        final ListView listView = (ListView)findViewById(R.id.list);
+        adapter = new ItemAdapter(MainActivity.this, listItems,true);
+        // Assign adapter to ListView
+        listView.setAdapter(adapter);
+        tv.setText("Stared Qst");
+        swipeContainer.setEnabled(false);
+
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if (!mSortable) {
+                    return false;
+                }
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        break;
+                    }
+                    case MotionEvent.ACTION_MOVE: {
+                        // 現在のポジションを取得し
+                        int position = listView.pointToPosition((int) event.getX(), (int) event.getY());
+                        if (position < 0) {
+                            break;
+                        }
+                        // 移動が検出されたら入れ替え
+                        if (position != mPosition) {
+                            mPosition = position;
+                            adapter.remove(DragQuestion);
+                            adapter.insert(DragQuestion, mPosition);
+                            SaveQuestion sq = new SaveQuestion(MainActivity.this);
+                            sq.SaveQuestions(adapter.getModelsArrayList());
+                        }
+                        return true;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_OUTSIDE: {
+                        stopDrag();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
     View.OnClickListener questionAndAnswer = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -400,5 +406,14 @@ public class MainActivity extends Activity {
         mSortable = false;
         DragQuestion = null;
         adapter.notifyDataSetChanged(); // ハイライト反映・解除の為
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            if (data.hasExtra("refresh")) {
+                star_listview();
+            }
+        }
     }
 }

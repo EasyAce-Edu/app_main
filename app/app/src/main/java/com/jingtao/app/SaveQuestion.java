@@ -58,14 +58,14 @@ public class SaveQuestion {
         }
         return null;
     }
-    public boolean checksaved(){
+    public Model checksaved(){
         ArrayList<Model> savedQuestionList = new ArrayList<>();
         savedQuestionList=ReadSavedQuestion();
-        if(savedQuestionList==null) return false;
+        if(savedQuestionList==null) return null;
         for(Model qst:savedQuestionList){
-            if(qst.getId().equals(question.getId())) return true;
+            if(qst.getId().equals(question.getId())) return qst;
         }
-        return false;
+        return null;
     }
     public boolean checksaved(ArrayList<Model> questions){
         for(Model qst:questions){

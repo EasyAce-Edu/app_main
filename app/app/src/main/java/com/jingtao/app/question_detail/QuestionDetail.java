@@ -81,6 +81,7 @@ public class QuestionDetail extends Activity {
         }catch(Exception e){
             Log.e("Exception",e.toString());
         }
+        ((TextView)findViewById(R.id.Tags)).setText("Tags: "+model.getTag().toString());
     }
 
     @Override

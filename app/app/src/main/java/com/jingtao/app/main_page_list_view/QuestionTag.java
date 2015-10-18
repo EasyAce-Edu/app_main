@@ -44,6 +44,13 @@ public class QuestionTag extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent data = new Intent();
+                data.putExtra("refresh", "true");
+                if (getParent() == null) {
+                    setResult(Activity.RESULT_OK, data);
+                } else {
+                    getParent().setResult(Activity.RESULT_OK, data);
+                }
                 finish();
             }
         });
@@ -55,6 +62,7 @@ public class QuestionTag extends Activity {
                 position = i;
             }
         }
+        Log.e("info","position:"+position+"id "+id);
         tags = questions.get(position).getTag();
         TAdapter = new TagArrayAdapter(this, R.layout.tag_row,tags);
         listview = (ListView)findViewById(R.id.tag_list);
@@ -123,6 +131,9 @@ public class QuestionTag extends Activity {
                 @Override
                 public void onClick(View v) {
                     remove(tag_string);
+                    questions.get(position).setTag(TAdapter.getTags());
+                    SaveQuestion sq = new SaveQuestion(QuestionTag.this);
+                    sq.SaveQuestions(questions);
                 }
             });
             return view;

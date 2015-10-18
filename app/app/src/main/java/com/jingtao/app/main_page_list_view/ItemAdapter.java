@@ -114,15 +114,17 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             }
             final SaveQuestion sq=new SaveQuestion(getContext(),model);
             if(model.IsStudent()) {
-                if (sq.checksaved()) {
+                Model saved=sq.checksaved();
+                if (saved!=null) {
                     star.setImageResource(R.mipmap.ic_star_filled);
+                    model.setTag(saved.getTag());
                 } else {
                     star.setImageResource(R.mipmap.ic_star_unfilled);
                 }
                 star.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (sq.checksaved()) {//already in the saved list
+                        if (sq.checksaved()==null) {//already in the saved list
                             star.setImageResource(R.mipmap.ic_star_unfilled);
                             modelsArrayList.get(position).getTag().clear();
                             sq.delete();
@@ -173,7 +175,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(),QuestionTag.class);
                     intent.putExtra("id",model.getId());
-                    getContext().startActivity(intent);
+                    ((MainActivity) getContext()).startActivityForResult(intent,1);
                 }
             });
         }

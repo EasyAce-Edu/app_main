@@ -45,14 +45,21 @@
                 android:textSize="30dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/subject_img"
-                android:layout_alignBottom="@id/subject_img"/>
+                android:layout_alignBottom="@id/subject_img"
+                android:maxEms="30"
+                />
+            <TextView
+                android:id="@+id/Tags"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subject" />
             <TextView
                 android:id="@+id/asker"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/subject"
+                android:layout_below="@id/Tags"
                 />
             <TextView
                 android:id="@+id/status"
