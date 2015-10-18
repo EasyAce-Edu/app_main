@@ -59,7 +59,6 @@ public class QuestionTag extends Activity {
         TAdapter = new TagArrayAdapter(this, R.layout.tag_row,tags);
         listview = (ListView)findViewById(R.id.tag_list);
         listview.setAdapter(TAdapter);
-        Log.e("info",TAdapter.getTags().toString());
         Button add = (Button)findViewById(R.id.add_tag);
         final EditText edit = (EditText)findViewById(R.id.edit_tag);
         add.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +66,7 @@ public class QuestionTag extends Activity {
             public void onClick(View v) {
                 TAdapter.add(edit.getText().toString());
                 edit.setText("");
-                Log.e("info", "tags:" + TAdapter.getTags().toString());
                 questions.get(position).setTag(TAdapter.getTags());
-                Log.e("info", "tags:" + questions.get(position).getTag().toString());
                 SaveQuestion sq = new SaveQuestion(QuestionTag.this);
                 sq.SaveQuestions(questions);
             }
@@ -122,33 +119,16 @@ public class QuestionTag extends Activity {
             TextView tag_tv = (TextView) view.findViewById(R.id.tag_tv);
             ImageButton delete_btn = (ImageButton) view.findViewById(R.id.btn_delete);
             tag_tv.setText(tag_string);
+            delete_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    remove(tag_string);
+                }
+            });
             return view;
 
         }
 
-        @Override
-        public void add(String row) {
-            super.add(row);
-            tag.add(row);
-        }
-
-        @Override
-        public void insert(String row, int position) {
-            super.insert(row, position);
-            tag.add(position, row);
-        }
-
-        @Override
-        public void remove(String row) {
-            super.remove(row);
-            tag.remove(row);
-        }
-
-        @Override
-        public void clear() {
-            super.clear();
-            tag.clear();
-        }
 
 
     }
