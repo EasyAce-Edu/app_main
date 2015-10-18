@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jingtao.app.R;
+import com.jingtao.app.main_page_list_view.Model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,10 +34,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -52,6 +56,7 @@ public class MessageView extends LinearLayout {
     protected ProgressBar pb;
     protected String sentBy;
     protected String id;
+    protected boolean download;
     MediaPlayer player;
     final MediaPlayer mp = new MediaPlayer();
     public MessageView(Context context,JSONObject msg,Boolean QuestionAsker) {
@@ -90,39 +95,62 @@ public class MessageView extends LinearLayout {
             OutputStream output;
             int count;
             long total;
-            try {
-                String root = Environment.getExternalStorageDirectory().getPath();
-                File zip = new File(root +"/"+id+".zip");
-                if (zip.exists()){
-                    zip.delete();
+            download=true;
+            File done_file = new File(Environment.getExternalStorageDirectory().getPath() + "/easy_ace/" + id + "/done");
+            ArrayList<String> paths = new ArrayList<>();
+            if(done_file.exists()){
+                try{
+                    download=false;
+                    FileInputStream fileIn = new FileInputStream(done_file);
+                    ObjectInputStream oin = new ObjectInputStream(fileIn);
+                    paths = (ArrayList<String>) oin.readObject();
+                    oin.close();
+                    fileIn.close();
+                    for(String file:paths){
+                        File new_file = new File(file);
+                        if(!new_file.exists()){
+                            download=true;
+                        }
+                    }
+                }catch (Exception e){
+                    Log.e("error read saving",e.toString());
+                    e.printStackTrace();
                 }
-                File folder = new File(root +"/easy_ace");
-                if (!folder.exists()){
-                    folder.mkdir();
-                }
-                zipUrl = new URL(urls[0]);
-                URLConnection connection = zipUrl.openConnection();
-                connection.connect();
-                int lenghtOfFile = connection.getContentLength();
-                in=new BufferedInputStream(zipUrl.openStream());
-                output=new FileOutputStream(zip);
-                byte data[] = new byte[1024];
-
-                total = 0;
-
-                while ((count = in.read(data)) != -1) {
-                    total += count;
-                    output.write(data, 0, count);
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
-                }                // Flush output
-                output.flush();
-                // Close streams
-                output.close();
-                in.close();
-            }catch (Exception e){
-                Log.e("Exception",e.toString());
             }
+            if(download) {
+                try {
+                    String root = Environment.getExternalStorageDirectory().getPath();
+                    File zip = new File(root + "/" + id + ".zip");
+                    if (zip.exists()) {
+                        zip.delete();
+                    }
+                    File folder = new File(root + "/easy_ace");
+                    if (!folder.exists()) {
+                        folder.mkdir();
+                    }
+                    zipUrl = new URL(urls[0]);
+                    URLConnection connection = zipUrl.openConnection();
+                    connection.connect();
+                    int lenghtOfFile = connection.getContentLength();
+                    in = new BufferedInputStream(zipUrl.openStream());
+                    output = new FileOutputStream(zip);
+                    byte data[] = new byte[1024];
 
+                    total = 0;
+
+                    while ((count = in.read(data)) != -1) {
+                        total += count;
+                        output.write(data, 0, count);
+                        publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+                    }                // Flush output
+                    output.flush();
+                    // Close streams
+                    output.close();
+                    in.close();
+                } catch (Exception e) {
+                    Log.e("Exception", e.toString());
+                }
+            }
             return null;
         }
         protected void publishProgress(String...progress){
@@ -131,21 +159,33 @@ public class MessageView extends LinearLayout {
         protected void onPostExecute(String str) {
             Bitmap bitmap;
             Bitmap bitmap_large;
-            try {
-                String unzipDest=Environment.getExternalStorageDirectory().getPath()+"/easy_ace/"+id;
-                File folder = new File(unzipDest);
-                if (!(folder.exists())) {
-                    folder.mkdir();
-                }else{
-                    String[] children = folder.list();
-                    for (int i = 0; i < children.length; i++) {
-                        new File(folder, children[i]).delete();
+            ArrayList<String> paths = new ArrayList();
+            File fail_file = new File(Environment.getExternalStorageDirectory().getPath() + "/easy_ace/"+id+"/fail");
+            File done_file = new File(Environment.getExternalStorageDirectory().getPath() + "/easy_ace/" + id + "/done");
+            if(fail_file.exists()){
+                fail_file.delete();
+            }
+            if(download) {
+                try {
+                    String unzipDest = Environment.getExternalStorageDirectory().getPath() + "/easy_ace/" + id;
+                    File folder = new File(unzipDest);
+                    if (!(folder.exists())) {
+                        folder.mkdir();
+                    } else {
+                        String[] children = folder.list();
+                        for (int i = 0; i < children.length; i++) {
+                            new File(folder, children[i]).delete();
+                        }
+                        folder.mkdir();
                     }
-                    folder.mkdir();
+                    unpackZip(Environment.getExternalStorageDirectory().getPath(), "/" + id + ".zip", "/easy_ace/" + id);
+                } catch (Exception e) {
+                    Log.e("Exception", e.toString());
+                    try {
+                        fail_file.createNewFile();
+                    } catch (Exception e1) {
+                    }
                 }
-                unpackZip(Environment.getExternalStorageDirectory().getPath(), "/"+id+".zip", "/easy_ace/"+id);
-            }catch(Exception e){
-                Log.e("Exception", e.toString());
             }
             for(int i=0;i<5;i++) {
                 String img_path = Environment.getExternalStorageDirectory().getPath() + "/easy_ace/"+id+"/"+i+".jpg";
@@ -162,6 +202,7 @@ public class MessageView extends LinearLayout {
                         lp.setMargins(10, 0, 20, 0);
                         img_view.setLayoutParams(lp);
                         imgViews.addView(img_view);
+                        paths.add(img_path);
                     } catch (Exception e) {
                         Log.e("Exception", e.toString());
                     }
@@ -185,6 +226,7 @@ public class MessageView extends LinearLayout {
                 soundBtn.setLayoutParams(params);
                 LinearLayout body = (LinearLayout)findViewById(R.id.msg_body);
                 body.addView(soundBtn);
+                paths.add(sound_path);
                 soundBtn.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -201,13 +243,25 @@ public class MessageView extends LinearLayout {
                         } catch (IOException e) {
                             Log.e("Exception", e.toString());
                         }
-
-
                     }
                 });
             }
             pb.setVisibility(View.GONE);
-
+            try {
+                if(!fail_file.exists()) {
+                    if (!done_file.exists()) {
+                        done_file.createNewFile();
+                    }
+                    FileOutputStream fout = new FileOutputStream(done_file);
+                    ObjectOutputStream oos = new ObjectOutputStream(fout);
+                    oos.writeObject(paths);
+                    fout.close();
+                    oos.close();
+                }
+            }catch(Exception e){
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
         }
 
 
@@ -249,6 +303,10 @@ public class MessageView extends LinearLayout {
         catch(IOException e)
         {
             e.printStackTrace();
+            File fail_file = new File(Environment.getExternalStorageDirectory().getPath() + "/easy_ace/"+id+"/fail");
+            try {
+                fail_file.createNewFile();
+            }catch (Exception e1){}
             return false;
         }
 

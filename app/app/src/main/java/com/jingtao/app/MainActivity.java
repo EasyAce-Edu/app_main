@@ -19,12 +19,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.jingtao.app.main_page_list_view.ItemAdapter;
 import com.jingtao.app.main_page_list_view.Model;
 import com.jingtao.app.main_page_list_view.SearchQst;
 import com.jingtao.app.question_detail.QuestionDetail;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
