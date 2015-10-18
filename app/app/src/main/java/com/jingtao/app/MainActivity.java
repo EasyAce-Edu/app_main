@@ -121,8 +121,6 @@ public class MainActivity extends Activity {
             final ListView listView = (ListView)findViewById(R.id.list);
             adapter = new ItemAdapter(MainActivity.this, listItems,true);
             // Assign adapter to ListView
-
-            Log.e("INFO", listItems.toString() + adapter.toString());
             listView.setAdapter(adapter);
             tv.setText("Stared Qst");
             swipeContainer.setEnabled(false);

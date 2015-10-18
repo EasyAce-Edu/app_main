@@ -6,4 +6,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_question_detail">QuestionDetail</string>
     <string name="title_activity_search_qst">SearchQst</string>
+    <string name="title_activity_question_tag">QuestionTag</string>
 </resources>

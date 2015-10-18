@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Environment;
@@ -123,6 +124,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
                     public void onClick(View v) {
                         if (sq.checksaved()) {//already in the saved list
                             star.setImageResource(R.mipmap.ic_star_unfilled);
+                            modelsArrayList.get(position).getTag().clear();
                             sq.delete();
                         } else {//not saved
                             star.setImageResource(R.mipmap.ic_star_filled);
@@ -134,6 +136,8 @@ public class ItemAdapter extends ArrayAdapter<Model> {
         if(!drag){
             ImageView handler = (ImageView)rowView.findViewById(R.id.handler);
             handler.setVisibility(View.GONE);
+            ImageView tag = (ImageView)rowView.findViewById(R.id.tag);
+            tag.setVisibility(View.GONE);
 
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)star.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -162,6 +166,16 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             } else {
                 row.setBackgroundColor(Color.TRANSPARENT);
             }
+
+            ImageView tag = (ImageView)rowView.findViewById(R.id.tag);
+            tag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(),QuestionTag.class);
+                    intent.putExtra("id",model.getId());
+                    getContext().startActivity(intent);
+                }
+            });
         }
 
 

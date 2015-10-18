@@ -3,6 +3,7 @@ package com.jingtao.app.main_page_list_view;
 import org.json.JSONArray;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by shirley on 15-09-30.
@@ -18,6 +19,7 @@ public class Model implements Serializable{
     private String answeredby;
     private String createdtime;
     private String updatedtime;
+    private ArrayList<String> Tag;
     private boolean IsStudent;
 
 
@@ -36,6 +38,7 @@ public class Model implements Serializable{
         this.msglst=msglst;
         this.answeredby=answeredBy;
         this.IsStudent=IsStudent;
+        this.Tag= new ArrayList<>();
     }
 
     public String getSubject(){
@@ -72,4 +75,6 @@ public class Model implements Serializable{
         return this.msglst;
     }
     public boolean IsStudent(){return this.IsStudent;}
+    public ArrayList<String> getTag(){return this.Tag;}
+    public void setTag(ArrayList<String> tags){this.Tag=tags;}
 }

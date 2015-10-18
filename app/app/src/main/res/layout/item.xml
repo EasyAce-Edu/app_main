@@ -46,7 +46,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/star"
-        android:layout_toLeftOf="@+id/handler"
+        android:layout_toLeftOf="@+id/tag"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
         />
@@ -57,5 +57,13 @@
         android:layout_alignParentRight="true"
         android:src="@mipmap/ic_drag"
         android:scaleType="fitXY"
+        />
+    <ImageView
+        android:id="@+id/tag"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/handler"
+        android:src="@mipmap/ic_tag"
+        android:scaleType="centerInside"
         />
 </RelativeLayout>
