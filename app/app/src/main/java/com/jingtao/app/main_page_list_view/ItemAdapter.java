@@ -29,6 +29,8 @@ import com.jingtao.app.R;
 import com.jingtao.app.SaveQuestion;
 import com.jingtao.app.main_page_list_view.Model;
 
+import org.json.JSONArray;
+
 public class ItemAdapter extends ArrayAdapter<Model> {
 
     private final Context context;
@@ -82,6 +84,13 @@ public class ItemAdapter extends ArrayAdapter<Model> {
 
 
             // 4. Set the text for textView
+           JSONArray msgArr= new JSONArray();
+           try {
+               msgArr = new JSONArray(model.getMsglst());
+            }catch (Exception e){
+                 e.printStackTrace();
+             }
+            ((TextView)rowView.findViewById(R.id.msg_size)).setText("Total " + msgArr.length()+" Mssages");
             String Subject = model.getSubject();
             if(Subject.toLowerCase().substring(0,1).equals("m")) {
                 imgView.setImageResource(R.mipmap.ic_m);

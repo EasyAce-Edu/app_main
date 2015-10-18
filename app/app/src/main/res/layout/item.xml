@@ -15,23 +15,32 @@
         android:layout_marginTop="8dp"/>
 
     <TextView
+        android:id="@+id/subject_tv"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/subject_tv"
         android:layout_toRightOf="@+id/imageView"
         android:textSize="20dp"/>
-
     <TextView
+        android:id="@+id/text_tv"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/text_tv"
         android:layout_below="@id/subject_tv"
-        android:layout_toRightOf="@+id/imageView" />
-    <ImageView
-        android:layout_width="20dp"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_marginTop="-5dp"
+        android:textSize="12dp"/>
+    <TextView
+        android:id="@+id/msg_size"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_below="@+id/text_tv"
+        android:textSize="8dp"
+        android:layout_marginTop="-5dp" />
+    <ImageView
         android:id="@+id/hint"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/subject_tv"/>
     <ImageView
         android:layout_width="30dp"
