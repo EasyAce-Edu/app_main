@@ -74,8 +74,8 @@ public class QuestionDetail extends Activity {
             Boolean QuestionAsker=true;
             Log.e("info",msgArr.toString());
             for(int i=0;i<msgArr.length();i++) {
+                QuestionAsker=((JSONObject)msgArr.get(i)).get("sentBy").equals(model.getAskedby());
                 MessageView msgView = new MessageView(this, ((JSONObject) msgArr.get(i)),QuestionAsker);
-                QuestionAsker=!QuestionAsker;
                 container.addView(msgView);
             }
         }catch(Exception e){

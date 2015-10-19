@@ -114,7 +114,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
                 hint.setImageResource(R.mipmap.ic_ans);
             }
             if(modelsArrayList.get(position).getStatus().equals("close")){
-                row.setBackgroundColor(Color.parseColor("#d5d5d5"));
+                row.setBackgroundColor(Color.parseColor("#80d5d5d5"));
             }
             final SaveQuestion sq=new SaveQuestion(getContext(),model);
             if(model.IsStudent()) {
