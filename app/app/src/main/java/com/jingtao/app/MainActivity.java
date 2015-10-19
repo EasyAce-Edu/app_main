@@ -19,8 +19,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.jingtao.app.main_page_list_view.ItemAdapter;
 import com.jingtao.app.main_page_list_view.Model;
 import com.jingtao.app.main_page_list_view.SearchQst;
@@ -99,7 +97,7 @@ public class MainActivity extends Activity {
     public void search_view(View view){
         Intent search_question=new Intent(MainActivity.this,SearchQst.class);
         search_question.putExtra("qst_lst", listItems);
-        startActivity(search_question);
+        startActivityForResult(search_question,1);
     }
 
     View.OnClickListener search_history = new View.OnClickListener() {
@@ -203,7 +201,7 @@ public class MainActivity extends Activity {
                 Model model = (Model)parent.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this, QuestionDetail.class);
                 intent.putExtra("model",model);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
         String getQuestion="https://easyace-api-staging.herokuapp.com/questions";
@@ -419,7 +417,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
-            if (data.hasExtra("refresh")) {
+            if (data.hasExtra("Refresh_star")) {
                 star_listview();
             }
         }

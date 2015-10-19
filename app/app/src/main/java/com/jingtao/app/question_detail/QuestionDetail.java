@@ -11,9 +11,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jingtao.app.MainActivity;
+import com.jingtao.app.SaveQuestion;
 import com.jingtao.app.main_page_list_view.Model;
 import com.jingtao.app.R;
+import com.jingtao.app.main_page_list_view.QuestionTag;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,7 +30,7 @@ public class QuestionDetail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_detail);
         Intent intent = getIntent();
-        Model model =(Model) intent.getSerializableExtra("model");
+        final Model model =(Model) intent.getSerializableExtra("model");
         TextView sbj=(TextView)findViewById(R.id.subject);
         sbj.setText(model.getSubject());
         ImageButton back =(ImageButton)findViewById(R.id.btn_backTolist);
@@ -67,11 +73,11 @@ public class QuestionDetail extends Activity {
         }else{
             subimg.setBackgroundColor(Color.parseColor("#5ca8cd"));
         }
-        Log.e("info", model.getMsglst());//DEBUG
+        //Log.e("info", model.getMsglst());//DEBUG
         LinearLayout container = (LinearLayout)findViewById(R.id.container);
         try {
             JSONArray msgArr = new JSONArray(model.getMsglst());
-            Boolean QuestionAsker=true;
+            Boolean QuestionAsker;
             Log.e("info",msgArr.toString());
             for(int i=0;i<msgArr.length();i++) {
                 QuestionAsker=((JSONObject)msgArr.get(i)).get("sentBy").equals(model.getAskedby());
@@ -81,7 +87,32 @@ public class QuestionDetail extends Activity {
         }catch(Exception e){
             Log.e("Exception",e.toString());
         }
-        ((TextView)findViewById(R.id.Tags)).setText("Tags: "+model.getTag().toString());
+        //deal with tags
+        ImageButton btn_tag=(ImageButton)findViewById(R.id.btn_tag);
+        if(model.IsStudent()) {
+            ((TextView) findViewById(R.id.Tags)).setText("Tags: " + model.getTag().toString());
+            SaveQuestion sq = new SaveQuestion(this, model);
+            if ((sq.checksaved()) == null) {//not saved
+                btn_tag.setVisibility(View.GONE);
+            } else{
+                btn_tag.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(QuestionDetail.this, QuestionTag.class);
+                        intent.putExtra("id", model.getId());
+                        startActivityForResult(intent, 1);
+                    }
+                });
+            }
+        }else{
+            btn_tag.setVisibility(View.GONE);
+            TextView Tag_tv = (TextView)findViewById(R.id.Tags);
+            Tag_tv.setVisibility(View.GONE);
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)asker.getLayoutParams();
+            params.addRule(RelativeLayout.BELOW, R.id.subject_img);
+            asker.setLayoutParams(params);
+        }
     }
 
     @Override

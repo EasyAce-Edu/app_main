@@ -16,7 +16,17 @@
             android:layout_centerVertical="true"
             android:id="@+id/btn_backTolist"
             android:src="@mipmap/ic_back"
-            android:background="#d4ebf2" />
+            android:background="#d4ebf2"
+            android:layout_alignParentLeft="true"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btn_tag"
+            android:src="@mipmap/ic_blacktag"
+            android:background="#d4ebf2"
+            android:scaleType="centerInside"/>
     </RelativeLayout>
 
 

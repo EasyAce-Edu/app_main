@@ -40,12 +40,12 @@ public class QuestionTag extends Activity {
         setContentView(R.layout.activity_question_tag);
         ImageButton back = (ImageButton) findViewById(R.id.btn_backTolist);
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        final String id = intent.getStringExtra("id");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent data = new Intent();
-                data.putExtra("refresh", "true");
+                data.putExtra("refresh_star", "true");
                 if (getParent() == null) {
                     setResult(Activity.RESULT_OK, data);
                 } else {
@@ -62,9 +62,10 @@ public class QuestionTag extends Activity {
                 position = i;
             }
         }
-        Log.e("info","position:"+position+"id "+id);
+        Log.e("info", "position:" + position + "id " + id + " @OnCreate QuestionTag.java");
         tags = questions.get(position).getTag();
-        TAdapter = new TagArrayAdapter(this, R.layout.tag_row,tags);
+        Log.e("info","tags in questions: "+tags+" @OnCreate QuestionTag.java");
+        TAdapter = new TagArrayAdapter(this, R.layout.tag_row,tags,questions.get(position));
         listview = (ListView)findViewById(R.id.tag_list);
         listview.setAdapter(TAdapter);
         Button add = (Button)findViewById(R.id.add_tag);
@@ -74,7 +75,6 @@ public class QuestionTag extends Activity {
             public void onClick(View v) {
                 TAdapter.add(edit.getText().toString());
                 edit.setText("");
-                questions.get(position).setTag(TAdapter.getTags());
                 SaveQuestion sq = new SaveQuestion(QuestionTag.this);
                 sq.SaveQuestions(questions);
             }
@@ -107,14 +107,16 @@ public class QuestionTag extends Activity {
     public class TagArrayAdapter extends ArrayAdapter<String> {
         private ArrayList<String> tag = new ArrayList<>();
         private LayoutInflater Inflater;
+        private Model qst;
         private int Layout;
 
 
-        public TagArrayAdapter(Context context, int textViewResourceId,ArrayList<String> tags) {
+        public TagArrayAdapter(Context context, int textViewResourceId,ArrayList<String> tags, Model qst) {
             super(context, textViewResourceId,tags);
             this.Inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             this.Layout = textViewResourceId;
             this.tag=tags;
+            this.qst=qst;
         }
         public ArrayList<String> getTags(){
             return this.tag;
@@ -131,7 +133,7 @@ public class QuestionTag extends Activity {
                 @Override
                 public void onClick(View v) {
                     remove(tag_string);
-                    questions.get(position).setTag(TAdapter.getTags());
+                    qst.setTag(TAdapter.getTags());
                     SaveQuestion sq = new SaveQuestion(QuestionTag.this);
                     sq.SaveQuestions(questions);
                 }
