@@ -74,6 +74,8 @@ public class Model implements Serializable{
     public String getMsglst(){
         return this.msglst;
     }
+    public void setMsglst(String msgs){this.msglst=msgs;}
+    public void setUpdatedtime(String time){this.updatedtime=time;}
     public boolean IsStudent(){return this.IsStudent;}
     public ArrayList<String> getTag(){return this.Tag;}
     public void setTag(ArrayList<String> tags){this.Tag=tags;}

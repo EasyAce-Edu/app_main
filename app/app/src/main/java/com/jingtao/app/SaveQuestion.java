@@ -29,9 +29,10 @@ public class SaveQuestion {
                 save_file.createNewFile();
             }
         }catch (Exception e){
-            Log.e("Error",e.toString());
+            Log.e("Error","SaveQuestion,SaveQuestion.java "+e.toString());
         }
     }
+
     public SaveQuestion(Context context) {
         question=null;
         this.path=Environment.getExternalStorageDirectory().getPath() + "/easy_ace/student_saved_question";
@@ -46,21 +47,22 @@ public class SaveQuestion {
     }
     public ArrayList<Model> ReadSavedQuestion(){
         try {
-            ArrayList<Model> savedQuestionList =new ArrayList<>();
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            savedQuestionList = (ArrayList<Model>) in.readObject();
+            ArrayList<Model> savedQuestionList = (ArrayList<Model>) in.readObject();
+            //Log.e("debug",savedQuestionList.toString()+" @ReadSavedQuestion SaveQuestion.java");
             in.close();
             fileIn.close();
             return savedQuestionList;
         }catch (Exception e){
-            Log.e("error", e.toString());
+            Log.e("error", "ReadSavedQuestion,SaveQuestion.java "+e.toString());
+            e.printStackTrace();
         }
         return null;
     }
     public Model checksaved(){
-        ArrayList<Model> savedQuestionList = new ArrayList<>();
-        savedQuestionList=ReadSavedQuestion();
+        ArrayList<Model> savedQuestionList = ReadSavedQuestion();
+        //Log.e("debug",savedQuestionList.toString()+" @SavedQuestion.java");
         if(savedQuestionList==null) return null;
         for(Model qst:savedQuestionList){
             if(qst.getId().equals(question.getId())) return qst;
@@ -92,6 +94,9 @@ public class SaveQuestion {
     public boolean save(){
         try {
             File save_file = new File(path);
+            if(!save_file.exists()){
+                save_file.createNewFile();
+            }
             ArrayList<Model> savedQuestionList =new ArrayList<>();
             try{
                 FileInputStream fileIn = new FileInputStream(path);
@@ -105,6 +110,40 @@ public class SaveQuestion {
             }
             if(!checksaved(savedQuestionList)) {
                 savedQuestionList.add(question);
+            }
+            FileOutputStream fout = new FileOutputStream(save_file);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(savedQuestionList);
+            fout.close();
+            oos.close();
+            return true;
+        }catch(Exception e){
+            Log.e("error",e.toString());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public boolean ChangeMsgLstandUpdatedTime(){
+        try {
+            File save_file = new File(path);
+            ArrayList<Model> savedQuestionList =new ArrayList<>();
+            try{
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                savedQuestionList = (ArrayList<Model>) in.readObject();
+                in.close();
+                fileIn.close();
+            }catch (Exception e){
+                Log.e("error read saving",e.toString());
+                e.printStackTrace();
+            }
+            for(Model q:savedQuestionList){
+                if(q.getId().equals(question.getId())){
+                    q.setMsglst(question.getMsglst());
+                    q.setUpdatedtime(question.getUpdatedtime());
+                }
             }
             FileOutputStream fout = new FileOutputStream(save_file);
             ObjectOutputStream oos = new ObjectOutputStream(fout);

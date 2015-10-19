@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
 
     public void search_view(View view){
         Intent search_question=new Intent(MainActivity.this,SearchQst.class);
-        search_question.putExtra("qst_lst",listItems);
+        search_question.putExtra("qst_lst", listItems);
         startActivity(search_question);
     }
 
@@ -128,47 +128,55 @@ public class MainActivity extends Activity {
         final ListView listView = (ListView)findViewById(R.id.list);
         adapter = new ItemAdapter(MainActivity.this, listItems,true);
         // Assign adapter to ListView
-        listView.setAdapter(adapter);
-        tv.setText("Stared Qst");
-        swipeContainer.setEnabled(false);
+        if(listItems!=null) {
+            listView.setAdapter(adapter);
+            tv.setText("Stared Qst");
+            swipeContainer.setEnabled(false);
 
-        listView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (!mSortable) {
-                    return false;
-                }
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        break;
+            listView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent event) {
+                    if (!mSortable) {
+                        return false;
                     }
-                    case MotionEvent.ACTION_MOVE: {
-                        // 現在のポジションを取得し
-                        int position = listView.pointToPosition((int) event.getX(), (int) event.getY());
-                        if (position < 0) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
                             break;
                         }
-                        // 移動が検出されたら入れ替え
-                        if (position != mPosition) {
-                            mPosition = position;
-                            adapter.remove(DragQuestion);
-                            adapter.insert(DragQuestion, mPosition);
-                            SaveQuestion sq = new SaveQuestion(MainActivity.this);
-                            sq.SaveQuestions(adapter.getModelsArrayList());
+                        case MotionEvent.ACTION_MOVE: {
+                            // 現在のポジションを取得し
+                            int position = listView.pointToPosition((int) event.getX(), (int) event.getY());
+                            if (position < 0) {
+                                break;
+                            }
+                            // 移動が検出されたら入れ替え
+                            if (position != mPosition) {
+                                mPosition = position;
+                                adapter.remove(DragQuestion);
+                                adapter.insert(DragQuestion, mPosition);
+                                SaveQuestion sq = new SaveQuestion(MainActivity.this);
+                                sq.SaveQuestions(adapter.getModelsArrayList());
+                            }
+                            return true;
                         }
-                        return true;
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                        case MotionEvent.ACTION_OUTSIDE: {
+                            stopDrag();
+                            return true;
+                        }
                     }
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_OUTSIDE: {
-                        stopDrag();
-                        return true;
-                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }else{listItems = sq.ReadSavedQuestion();
 
+            // Defined Array values to show in ListView
+            listItems=new ArrayList<>();
+            adapter = new ItemAdapter(MainActivity.this, listItems,true);
+            listView.setAdapter(adapter);
+            //
+        }
     }
     View.OnClickListener questionAndAnswer = new View.OnClickListener() {
         @Override

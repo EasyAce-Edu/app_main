@@ -31,12 +31,14 @@ import com.jingtao.app.SaveQuestion;
 import com.jingtao.app.main_page_list_view.Model;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ItemAdapter extends ArrayAdapter<Model> {
 
     private final Context context;
     private final ArrayList<Model> modelsArrayList;
     private final boolean drag;
+    private boolean update;
 
     public ItemAdapter(Context context, ArrayList<Model> modelsArrayList) {
 
@@ -45,6 +47,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
         this.context = context;
         this.modelsArrayList = modelsArrayList;
         this.drag=false;
+        this.update=false;
     }
     public ItemAdapter(Context context, ArrayList<Model> modelsArrayList,boolean drag) {
 
@@ -53,6 +56,7 @@ public class ItemAdapter extends ArrayAdapter<Model> {
         this.context = context;
         this.modelsArrayList = modelsArrayList;
         this.drag=drag;
+        this.update=false;
     }
 
 
@@ -118,22 +122,37 @@ public class ItemAdapter extends ArrayAdapter<Model> {
                 if (saved!=null) {
                     star.setImageResource(R.mipmap.ic_star_filled);
                     model.setTag(saved.getTag());
+                    if(!model.getUpdatedtime().equals(saved.getUpdatedtime())){
+                        sq.ChangeMsgLstandUpdatedTime();
+                    }
                 } else {
                     star.setImageResource(R.mipmap.ic_star_unfilled);
                 }
                 star.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (sq.checksaved()==null) {//already in the saved list
+                        if (sq.checksaved() != null) {//already in the saved list
+                            //Log.e("debug","star clicked and sq.checksaved()=null @ ItemAdapter.java");
                             star.setImageResource(R.mipmap.ic_star_unfilled);
                             modelsArrayList.get(position).getTag().clear();
                             sq.delete();
                         } else {//not saved
+                            //Log.e("debug","star clicked and sq.checksaved()!=null @ ItemAdapter.java");
                             star.setImageResource(R.mipmap.ic_star_filled);
                             sq.save();
                         }
                     }
                 });
+                try{
+                    if(!((JSONObject)msgArr.get(msgArr.length()-1)).getString("sentBy").equals(model.getAskedby())){
+                        row.setBackgroundColor(Color.parseColor("#80ffffb4"));
+                        update=true;
+                    }else{
+                        update=false;
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         if(!drag){
             ImageView handler = (ImageView)rowView.findViewById(R.id.handler);
@@ -166,7 +185,11 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             if (((MainActivity)getContext()).DragQuestion != null && ((MainActivity)getContext()).DragQuestion .equals(question)) {
                 row.setBackgroundColor(Color.parseColor("#d4ebf2"));//9933b5e5
             } else {
-                row.setBackgroundColor(Color.TRANSPARENT);
+                if(update) {
+                    row.setBackgroundColor(Color.parseColor("#80ffffb4"));
+                }else{
+                    row.setBackgroundColor(Color.TRANSPARENT);
+                }
             }
 
             ImageView tag = (ImageView)rowView.findViewById(R.id.tag);
