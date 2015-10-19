@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:id="@+id/row">
-
 
     <ImageView
         android:layout_width="50dp"
@@ -19,7 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_toRightOf="@+id/imageView"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
     <TextView
         android:id="@+id/text_tv"
         android:layout_width="wrap_content"
@@ -28,6 +30,7 @@
         android:layout_toRightOf="@+id/imageView"
         android:layout_marginTop="-5dp"
         android:textSize="12dp"/>
+
     <TextView
         android:id="@+id/msg_size"
         android:layout_width="wrap_content"
@@ -36,34 +39,28 @@
         android:layout_below="@+id/text_tv"
         android:textSize="8dp"
         android:layout_marginTop="-5dp" />
+
     <ImageView
         android:id="@+id/hint"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/subject_tv"/>
+
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/star"
-        android:layout_toLeftOf="@+id/tag"
+        android:layout_toLeftOf="@+id/handler"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        />
+        android:layout_marginRight="5dp" />
+
     <ImageView
         android:id="@+id/handler"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:src="@mipmap/ic_drag"
-        android:scaleType="fitXY"
-        />
-    <ImageView
-        android:id="@+id/tag"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@+id/handler"
-        android:src="@mipmap/ic_tag"
-        android:scaleType="centerInside"
-        />
+        android:scaleType="fitXY" />
+
 </RelativeLayout>

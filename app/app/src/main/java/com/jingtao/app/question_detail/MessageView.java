@@ -287,6 +287,7 @@ public class MessageView extends LinearLayout {
                 // Need to create directories if not exists, or
                 // it will generate an Exception...
                 FileOutputStream fout = new FileOutputStream(path+folder +"/"+ filename);
+                Log.e("Info",path+folder+ "/"+ filename);
 
                 while ((count = zis.read(buffer)) != -1)
                 {

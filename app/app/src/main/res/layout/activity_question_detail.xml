@@ -7,26 +7,16 @@
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:background="#d4ebf2">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/btn_backTolist"
             android:src="@mipmap/ic_back"
-            android:background="#d4ebf2"
-            android:layout_alignParentLeft="true"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/btn_tag"
-            android:src="@mipmap/ic_blacktag"
-            android:background="#d4ebf2"
-            android:scaleType="centerInside"/>
+            android:background="#d4ebf2" />
     </RelativeLayout>
 
 
@@ -34,6 +24,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/header_layout">
+
         <RelativeLayout
             android:id="@+id/QuestionContainer"
             android:layout_width="match_parent"
@@ -42,66 +33,61 @@
             android:layout_alignParentTop="true"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
+
             <ImageView
                 android:id="@+id/subject_img"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                />
+                android:layout_alignParentTop="true" />
+
             <TextView
                 android:id="@+id/subject"
                 android:layout_width="wrap_content"
                 android:textSize="30dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/subject_img"
-                android:layout_alignBottom="@id/subject_img"
-                android:maxEms="30"
-                />
-            <TextView
-                android:id="@+id/Tags"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/subject" />
+                android:layout_alignBottom="@id/subject_img"/>
+
             <TextView
                 android:id="@+id/asker"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/Tags"
-                />
+                android:layout_below="@id/subject" />
+
             <TextView
                 android:id="@+id/status"
                 android:textSize="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/asker"
-                />
+                android:layout_below="@id/asker" />
+
             <ImageView
                 android:id="@+id/hint_img"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/status"
-                />
+                android:layout_below="@id/status" />
+
             <TextView
                 android:id="@+id/hint"
                 android:textSize="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/hint_img"
-                android:layout_below="@id/status"
-                />
+                android:layout_below="@id/status" />
+
             <TextView
                 android:id="@+id/CreatedTime"
                 android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/hint_img"
-                />
+                android:layout_below="@id/hint_img" />
+
             <LinearLayout
                 android:orientation="vertical"
                 android:id="@+id/container"
@@ -109,8 +95,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/CreatedTime"
                 android:layout_alignParentRight="true">
-
             </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Answer this question"
+        android:id="@+id/btn_answer"
+        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

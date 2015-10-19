@@ -27,10 +27,6 @@
             android:name=".main_page_list_view.SearchQst"
             android:label="@string/title_activity_search_qst" >
         </activity>
-        <activity
-            android:name=".main_page_list_view.QuestionTag"
-            android:label="@string/title_activity_question_tag" >
-        </activity>
     </application>
 
 </manifest>

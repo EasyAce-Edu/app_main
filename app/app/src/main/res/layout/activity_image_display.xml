@@ -1,5 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.qa.appstudent.ImageDisplay">
 
@@ -19,18 +21,22 @@
 
 
         <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="25dp"
+            android:layout_width="32dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:id="@+id/delete"
-            android:src="@mipmap/ic_delete"
-            android:background="#ffffff" />
+            android:src="@mipmap/ic_delete1"
+            android:background="#ffffff"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"/>
     </RelativeLayout>
+
     <com.qa.appstudent.TouchImageView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:id="@+id/image_view"
-        android:layout_below="@+id/header_layout" />
+        android:layout_below="@+id/header_layout"
+        android:background="#ffffff" />
 </RelativeLayout>

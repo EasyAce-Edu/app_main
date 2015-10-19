@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -96,8 +97,8 @@ public class MainActivity extends Activity {
 
     public void search_view(View view){
         Intent search_question=new Intent(MainActivity.this,SearchQst.class);
-        search_question.putExtra("qst_lst", listItems);
-        startActivityForResult(search_question,1);
+        search_question.putExtra("qst_lst",listItems);
+        startActivity(search_question);
     }
 
     View.OnClickListener search_history = new View.OnClickListener() {
@@ -114,19 +115,15 @@ public class MainActivity extends Activity {
         @Override
         public void onClick(View v) {
             drawerLayout.closeDrawer(leftRL);
-            star_listview();
-        }
-    };
+            SaveQuestion sq = new SaveQuestion(MainActivity.this);
+            listItems = sq.ReadSavedQuestion();
 
-    protected void star_listview(){
-        SaveQuestion sq = new SaveQuestion(MainActivity.this);
-        listItems = sq.ReadSavedQuestion();
+            // Defined Array values to show in ListView
+            final ListView listView = (ListView)findViewById(R.id.list);
+            adapter = new ItemAdapter(MainActivity.this, listItems,true);
+            // Assign adapter to ListView
 
-        // Defined Array values to show in ListView
-        final ListView listView = (ListView)findViewById(R.id.list);
-        adapter = new ItemAdapter(MainActivity.this, listItems,true);
-        // Assign adapter to ListView
-        if(listItems!=null) {
+            Log.e("INFO", listItems.toString() + adapter.toString());
             listView.setAdapter(adapter);
             tv.setText("Stared Qst");
             swipeContainer.setEnabled(false);
@@ -167,15 +164,9 @@ public class MainActivity extends Activity {
                     return false;
                 }
             });
-        }else{listItems = sq.ReadSavedQuestion();
 
-            // Defined Array values to show in ListView
-            listItems=new ArrayList<>();
-            adapter = new ItemAdapter(MainActivity.this, listItems,true);
-            listView.setAdapter(adapter);
-            //
         }
-    }
+    };
     View.OnClickListener questionAndAnswer = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -201,7 +192,7 @@ public class MainActivity extends Activity {
                 Model model = (Model)parent.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this, QuestionDetail.class);
                 intent.putExtra("model",model);
-                startActivityForResult(intent,1);
+                startActivity(intent);
             }
         });
         String getQuestion="https://easyace-api-staging.herokuapp.com/questions";
@@ -213,7 +204,9 @@ public class MainActivity extends Activity {
                 getQuestion=getQuestion+"?status=open";
                 tv.setText("Qst Pool");
             }else{
-                getQuestion=getQuestion+"?answeredBy="+userName;
+                String userId= Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+                getQuestion=getQuestion+"?answeredBy=" + userId;
                 tv.setText("My Qst");
             }
         }
@@ -398,8 +391,6 @@ public class MainActivity extends Activity {
 
     }
 
-
-
     public void startDrag(Model string) {
         mPosition = -1;
         mSortable = true;
@@ -412,14 +403,5 @@ public class MainActivity extends Activity {
         mSortable = false;
         DragQuestion = null;
         adapter.notifyDataSetChanged(); // ハイライト反映・解除の為
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == 1) {
-            if (data.hasExtra("Refresh_star")) {
-                star_listview();
-            }
-        }
     }
 }
