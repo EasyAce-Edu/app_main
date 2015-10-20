@@ -13,19 +13,21 @@
         <RelativeLayout
             android:id="@+id/header_layout"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:background="#d4ebf2"
             >
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_centerVertical="true"
                 android:id="@+id/btn_menu"
                 android:background="#d4ebf2"
                 android:src="@mipmap/ic_menu"
                 android:onClick="opendraw"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,14 +41,16 @@
 
             <ImageButton
                 android:id="@+id/btn_search"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:background="#d4ebf2"
                 android:src="@mipmap/ic_search"
-                android:onClick="search_view"/>
+                android:onClick="search_view"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"/>
         </RelativeLayout>
         <TextView
             android:id="@+id/log"

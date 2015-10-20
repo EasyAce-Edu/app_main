@@ -98,11 +98,11 @@ public class ItemAdapter extends ArrayAdapter<Model> {
             ((TextView)rowView.findViewById(R.id.msg_size)).setText("Total " + msgArr.length()+" Mssages");
             String Subject = model.getSubject();
             if(Subject.toLowerCase().substring(0,1).equals("m")) {
-                imgView.setImageResource(R.mipmap.ic_m);
+                imgView.setImageResource(R.mipmap.ic_m1);
             }else if(Subject.substring(0, 1).toLowerCase().equals("s")) {
-                imgView.setImageResource(R.mipmap.ic_s);
+                imgView.setImageResource(R.mipmap.ic_s1);
             }else if(Subject.substring(0,1).toLowerCase().equals("c")) {
-                imgView.setImageResource(R.mipmap.ic_c);
+                imgView.setImageResource(R.mipmap.ic_c1);
             }else{
                 imgView.setBackgroundColor(Color.parseColor("#5ca8cd"));
             }

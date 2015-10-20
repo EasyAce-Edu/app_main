@@ -12,8 +12,8 @@
         android:layout_alignParentRight="true">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/btn_backTolist"
             android:src="@mipmap/ic_back"

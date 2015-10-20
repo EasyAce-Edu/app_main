@@ -11,8 +11,8 @@
         android:background="#d4ebf2">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/btn_backTolist"
             android:src="@mipmap/ic_back"
@@ -30,10 +30,18 @@
     </RelativeLayout>
 
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Answer this question"
+        android:id="@+id/btn_answer"
+        android:layout_alignParentBottom="true" />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/header_layout">
+        android:layout_below="@id/header_layout"
+        android:layout_above="@+id/btn_answer">
         <RelativeLayout
             android:id="@+id/QuestionContainer"
             android:layout_width="match_parent"
