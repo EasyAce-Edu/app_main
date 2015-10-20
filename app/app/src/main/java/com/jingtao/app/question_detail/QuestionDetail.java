@@ -34,22 +34,26 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class QuestionDetail extends Activity {
+    private boolean need_refresh_tag;
+    private Model model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        need_refresh_tag = false;
         setContentView(R.layout.activity_question_detail);
         Intent intent = getIntent();
-        final Model model =(Model) intent.getSerializableExtra("model");
+        model =(Model) intent.getSerializableExtra("model");
         TextView sbj=(TextView)findViewById(R.id.subject);
         sbj.setText(model.getSubject());
         ImageButton back =(ImageButton)findViewById(R.id.btn_backTolist);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finish_refresh_tag();
             }
         });
         TextView createdtime=(TextView)findViewById(R.id.CreatedTime);
@@ -224,5 +228,38 @@ public class QuestionDetail extends Activity {
             return null;
         }
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            Bundle extra = data.getExtras();
+            if(data.getStringArrayListExtra("tags")!=null) {
+                ArrayList<String> tags = extra.getStringArrayList("tags");
+                ((TextView) findViewById(R.id.Tags)).setText("Tags: " + tags.toString());
+                model.setTag(tags);
+                need_refresh_tag = true;
+            }
+        }
+    }
+
+    public void finish_refresh_tag(){
+        if(need_refresh_tag){
+            Intent data = new Intent();
+            data.putExtra("refresh_tag", "true");
+            data.putExtra("id",model.getId());
+            data.putExtra("tags",new ArrayList<>(model.getTag()));
+            if (getParent() == null) {
+                setResult(Activity.RESULT_OK, data);
+            } else {
+                getParent().setResult(Activity.RESULT_OK, data);
+            }
+        }
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish_refresh_tag();
+    }
+
 }
 

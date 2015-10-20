@@ -44,14 +44,7 @@ public class QuestionTag extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent data = new Intent();
-                data.putExtra("refresh_star", "true");
-                if (getParent() == null) {
-                    setResult(Activity.RESULT_OK, data);
-                } else {
-                    getParent().setResult(Activity.RESULT_OK, data);
-                }
-                finish();
+               finish_refresh_tag();
             }
         });
         SaveQuestion sq = new SaveQuestion(this);
@@ -80,6 +73,22 @@ public class QuestionTag extends Activity {
             }
         });
 
+    }
+    public void finish_refresh_tag(){
+        Intent data = new Intent();
+        data.putExtra("refresh_tag", "true");
+        data.putExtra("id",questions.get(position).getId());
+        data.putExtra("tags",tags);
+        if (getParent() == null) {
+            setResult(Activity.RESULT_OK, data);
+        } else {
+            getParent().setResult(Activity.RESULT_OK, data);
+        }
+        finish();
+    }
+    @Override
+    public void onBackPressed() {
+        finish_refresh_tag();
     }
 
     @Override

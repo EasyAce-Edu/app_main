@@ -417,8 +417,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
-            if (data.hasExtra("Refresh_star")) {
-                star_listview();
+            Bundle extra = data.getExtras();
+            if(data.getStringArrayListExtra("tags")!=null) {
+                ArrayList<String> tags = extra.getStringArrayList("tags");
+                String id = extra.getString("id");
+                for(Model question:listItems){
+                    if (question.getId().equals(id)) {
+                        question.setTag(tags);
+                    }
+                }
             }
         }
     }
