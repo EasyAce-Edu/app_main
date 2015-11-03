@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" tools:context=".MainActivity"
+    android:background="#F0F0F5"
+    android:baselineAligned="true">
+
+
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#ffffff">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btn_back"
+            android:src="@mipmap/ic_back"
+            android:background="#ffffff" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_subject"
+            android:text="Subject"
+            android:textColor="#157efb"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:text="Send"
+            android:background="#157efb"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+
+
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="5dp"
+            android:hint="Please enter your question"
+            android:maxLength="140"
+            android:id="@+id/text"
+            android:gravity="fill_horizontal"
+            android:background="#ffffff" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="110dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/image_views"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"></LinearLayout>
+            <ImageView
+                android:id="@+id/add_icon"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#ffffff"
+            android:layout_gravity="center_horizontal">
+
+            <com.qa.appstudent.SoundView
+                android:id="@+id/sound_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="1dp"
+                android:text="Hint"
+                android:id="@+id/btn_hint"
+                android:background="#FFFFFF"
+                android:onClick="changeColor"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="2dp"
+                android:text="Full Solution"
+                android:id="@+id/btn_fullSol"
+                android:background="#FFFFFF"
+                android:onClick="changeColor"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
