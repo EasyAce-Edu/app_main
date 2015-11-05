@@ -82,7 +82,7 @@
             android:background="#ffffff"
             android:layout_gravity="center_horizontal">
 
-            <com.qa.appstudent.SoundView
+            <com.jingtao.app.views.SoundView
                 android:id="@+id/sound_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
