@@ -182,6 +182,7 @@ public class MainActivity extends Activity {
             drawerLayout.closeDrawer(leftRL);
             if(IsStudent) {
                 //TODO: jump to send question
+
             }else {
                 SetListView(true);
                 tv.setText("Qst Pool");
