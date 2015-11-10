@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -89,7 +90,7 @@ public class QuestionActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.btn_hint);
         btn.setSelected(true);
 
-        Button btnBack = (Button)findViewById(R.id.btn_back);
+        ImageButton btnBack = (ImageButton)findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
