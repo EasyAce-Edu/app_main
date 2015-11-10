@@ -36,6 +36,8 @@
             android:name=".main_page_list_view.QuestionTag"
             android:label="@string/title_activity_question_tag" >
         </activity>
+        <activity android:name=".activities.QuestionActivity"
+            android:label="@string/title_question_activity" />
     </application>
 
 </manifest>

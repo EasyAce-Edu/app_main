@@ -89,6 +89,20 @@ public class QuestionActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.btn_hint);
         btn.setSelected(true);
 
+        Button btnBack = (Button)findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent data = new Intent();
+                if (getParent() == null) {
+                    setResult(Activity.RESULT_OK, data);
+                } else {
+                    getParent().setResult(Activity.RESULT_OK, data);
+                }
+                finish();
+            }
+        });
+
 
 
         //get soundView

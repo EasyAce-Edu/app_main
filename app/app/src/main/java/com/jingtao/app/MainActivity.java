@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jingtao.app.activities.QuestionActivity;
 import com.jingtao.app.main_page_list_view.ItemAdapter;
 import com.jingtao.app.main_page_list_view.Model;
 import com.jingtao.app.main_page_list_view.SearchQst;
@@ -184,6 +186,8 @@ public class MainActivity extends Activity {
             drawerLayout.closeDrawer(leftRL);
             if(IsStudent) {
                 //TODO: jump to send question
+                Intent intent = new Intent(getBaseContext(), QuestionActivity.class);
+                startActivityForResult(intent, 1);
 
             }else {
                 SetListView(true);
