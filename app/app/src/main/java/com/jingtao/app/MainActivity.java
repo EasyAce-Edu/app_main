@@ -23,6 +23,7 @@ import com.jingtao.app.main_page_list_view.ItemAdapter;
 import com.jingtao.app.main_page_list_view.Model;
 import com.jingtao.app.main_page_list_view.SearchQst;
 import com.jingtao.app.question_detail.QuestionDetail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -47,6 +48,7 @@ public class MainActivity extends Activity {
     private boolean mSortable = false; // ソート中かどうか
     public Model DragQuestion; // ドラッグ中のオブジェクト
     private int mPosition = -1; // ドラッグ位置
+
 
     @Override
     public void onBackPressed() {

@@ -21,6 +21,7 @@ import com.jingtao.app.data.SoundClip;
 
 import java.io.File;
 import java.io.IOException;
+import com.jingtao.app.R;
 
 public class SoundView extends LinearLayout {
     private boolean isRecording = false;

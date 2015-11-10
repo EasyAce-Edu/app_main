@@ -78,9 +78,10 @@
             </ListView>
 
             <com.jingtao.app.views.QuestionView
-                android:layout_width=""
-                android:layout_height="">
-                
+                android:id="@+id/question_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
             </com.jingtao.app.views.QuestionView>
 
         </android.support.v4.widget.SwipeRefreshLayout>

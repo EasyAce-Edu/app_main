@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" tools:context=".MainActivity"
+    android:orientation="vertical"
+    tools:context="com.jingtao.app.views.QuestionView"
     android:background="#F0F0F5"
     android:baselineAligned="true">
 
