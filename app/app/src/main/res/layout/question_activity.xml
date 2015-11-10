@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jingtao.app.views.QuestionView"
+    tools:context="com.jingtao.app.activities.QuestionActivity"
     android:background="#F0F0F5"
     android:baselineAligned="true">
 
