@@ -7,16 +7,16 @@
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#d4ebf2">
+        android:layout_height="48dp"
+        android:background="#03a9f4">
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/btn_backTolist"
-            android:src="@mipmap/ic_back"
-            android:background="#d4ebf2"
+            android:src="@drawable/ic_back"
+            android:background="#03a9f4"
             android:layout_alignParentLeft="true"/>
         <ImageButton
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:id="@+id/btn_tag"
             android:src="@mipmap/ic_blacktag"
-            android:background="#d4ebf2"
+            android:background="#03a9f4"
             android:scaleType="centerInside"/>
     </RelativeLayout>
 

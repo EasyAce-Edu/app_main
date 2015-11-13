@@ -245,19 +245,19 @@ public class MainActivity extends Activity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    leftRL.setBackgroundColor(Color.parseColor("#ecfedd"));
+                    leftRL.setBackgroundColor(Color.parseColor("#ffffff"));
                     findViewById(R.id.Logo).setBackgroundColor(Color.parseColor("#7efb15"));
                     Button btn = (Button) findViewById(R.id.btn_profile);
-                    btn.setBackgroundColor(Color.parseColor("#8cfb2e"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn = (Button) findViewById(R.id.btn_history);
                     btn.setText("My Qst");
-                    btn.setBackgroundColor(Color.parseColor("#a8fc60"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn = (Button) findViewById(R.id.btn_QA);
                     btn.setText("Qst Pool");
-                    btn.setBackgroundColor(Color.parseColor("#c3fd92"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn = (Button) findViewById(R.id.btn_switch);
                     btn.setText("Switch To Student");
-                    btn.setBackgroundColor(Color.parseColor("#d1fdab"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn.setOnClickListener(SwitchToStudent);
                     TextView user=(TextView)findViewById(R.id.user);
                     user.setBackgroundColor(Color.parseColor("#7efb15"));
@@ -278,22 +278,22 @@ public class MainActivity extends Activity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    leftRL.setBackgroundColor(Color.parseColor("#abd1fd"));
-                    findViewById(R.id.Logo).setBackgroundColor(Color.parseColor("#0671ef"));
+                    leftRL.setBackgroundColor(Color.parseColor("#ffffff"));
+                    findViewById(R.id.Logo).setBackgroundColor(Color.parseColor("#03a9f4"));
                     Button btn=(Button)findViewById(R.id.btn_profile);
-                    btn.setBackgroundColor(Color.parseColor("#157ef9"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn=(Button)findViewById(R.id.btn_history);
                     btn.setText("My Qst");
-                    btn.setBackgroundColor(Color.parseColor("#2e8cfb"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn=(Button)findViewById(R.id.btn_QA);
                     btn.setText("Ask Qst");
-                    btn.setBackgroundColor(Color.parseColor("#60a8fc"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn=(Button)findViewById(R.id.btn_switch);
                     btn.setText("Switch To Tutor");
-                    btn.setBackgroundColor(Color.parseColor("#79b6fc"));
+                    btn.setBackgroundColor(Color.parseColor("#ffffff"));
                     btn.setOnClickListener(SwitchToTutor);
                     TextView user=(TextView)findViewById(R.id.user);
-                    user.setBackgroundColor(Color.parseColor("#0671ef"));
+                    user.setBackgroundColor(Color.parseColor("#ffffff"));
                     user.setText(userName + "\n" + (IsStudent ? "Student" : "Tutor"));
                     btn = (Button) findViewById(R.id.btn_stared);
                     btn.setVisibility(View.VISIBLE);

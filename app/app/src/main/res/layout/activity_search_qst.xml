@@ -6,28 +6,27 @@
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:background="#d4ebf2"
-        >
+        android:layout_height="48dp"
+        android:background="#03a9f4">
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/btn_backTolist"
-            android:src="@mipmap/ic_back"
-            android:background="#d4ebf2"
+            android:src="@drawable/ic_back"
+            android:background="#03a9f4"
             android:onClick="back"/>
 
         <ImageButton
             android:id="@+id/btn_search"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_toRightOf="@id/btn_backTolist"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:background="#d4ebf2"
-            android:src="@mipmap/ic_search"
+            android:background="#03a9f4"
+            android:src="@drawable/ic_search"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"/>
         <EditText
@@ -37,7 +36,8 @@
             android:layout_toRightOf="@id/btn_search"
             android:layout_centerHorizontal="true"
             android:singleLine="true"
-            android:lines="1"/>
+            android:lines="1"
+            android:textColor="#ffffff"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="fill_parent"

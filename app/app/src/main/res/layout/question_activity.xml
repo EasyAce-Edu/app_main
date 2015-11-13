@@ -10,23 +10,24 @@
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#ffffff">
+        android:layout_height="48dp"
+        android:background="#03a9f4">
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/btn_back"
-            android:src="@mipmap/ic_back"
-            android:background="#ffffff" />
+            android:src="@drawable/ic_back"
+            android:background="#03a9f4" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/select_subject"
             android:text="Subject"
-            android:textColor="#157efb"
+            android:textColor="#ffffff"
+            android:background="@android:color/transparent"
             android:layout_centerInParent="true"/>
 
         <Button
@@ -37,7 +38,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:text="Send"
-            android:background="#157efb"
+            android:background="@android:color/transparent"
             android:textColor="#ffffff" />
     </RelativeLayout>
 

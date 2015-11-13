@@ -6,27 +6,27 @@
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#ffffff">
+        android:layout_height="48dp"
+        android:background="#03a9f4">
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/back"
-            android:src="@mipmap/ic_back"
-            android:background="#ffffff" />
+            android:src="@drawable/ic_back"
+            android:background="#03a9f4" />
 
 
         <ImageButton
             android:layout_width="32dp"
-            android:layout_height="35dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:id="@+id/delete"
             android:src="@mipmap/ic_delete1"
-            android:background="#ffffff"
+            android:background="#03a9f4"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"/>
     </RelativeLayout>

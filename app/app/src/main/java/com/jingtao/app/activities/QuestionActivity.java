@@ -49,7 +49,7 @@ import org.joda.time.DateTime;
 import com.jingtao.app.R;
 
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends Activity {
 
     private static final String FOLDER = "QA";
     private static final String TEMP_FOLDER = "QA/TEMP";
