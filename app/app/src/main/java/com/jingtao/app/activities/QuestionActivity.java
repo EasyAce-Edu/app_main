@@ -127,7 +127,7 @@ public class QuestionActivity extends Activity {
         @Override
         public void onClick(View v) {
             if(selected_subject.equals("undefined")||hint_type.equals("undefined")){
-                AlertDialog alertDialog = new AlertDialog.Builder(getBaseContext()).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
                 alertDialog.setTitle("Cannot send question");
                 alertDialog.setMessage("Make sure your subject and hint/full sollution is selected");
                 alertDialog.show();
@@ -208,7 +208,7 @@ public class QuestionActivity extends Activity {
             HighLevelUploadService highLevelUploadService = new HighLevelUploadService(getApplicationContext(),uploadfile,md5(uploadfile.getName()+ DateTime.now().toString()),question);
             TransferObserver upload = highLevelUploadService.processS3Service();
             TransferState state = upload.getState();
-            AlertDialog alertDialog = new AlertDialog.Builder(getBaseContext()).create();
+            AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
             alertDialog.setTitle("Uploading");
             alertDialog.setMessage("Please wait");
             alertDialog.show();

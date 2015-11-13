@@ -40,7 +40,7 @@ public class HighLevelUploadService {
 
 
         AmazonS3 s3 = new AmazonS3Client(
-                new BasicAWSCredentials("123", "456"));
+                new BasicAWSCredentials("AKIAICQGFCTVME7FX6BQ", "Lr1T0woas8c0jvmka0TyKVGZjiHrMmeDo6q2D+rB"));
 
         TransferUtility transferManager = new TransferUtility(s3, context);
         // Starts a download
@@ -48,7 +48,7 @@ public class HighLevelUploadService {
 
 
 
-        final TransferObserver observer = transferManager.upload("testmaoninguo", this.hashId, file);
+        final TransferObserver observer = transferManager.upload("sophiaGuo", this.hashId, file);
 
         observer.setTransferListener(new TransferListener() {
 
